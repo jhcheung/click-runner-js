@@ -4,7 +4,7 @@ let gameOptions = {
     platformStartSpeed: 400,
     gameDisplayWidth: 1337,
     playerGravity: 1000,
-    jumpForce: 400,
+    jumpForce: 500,
     playerStartPosition: 200,
     playerStartLives: 5,
     jumps: 2,
@@ -34,7 +34,6 @@ class playGame extends Phaser.Scene{
         super("PlayGame")
         this.score = 0
         this.lives = gameOptions.playerStartLives
-        this.dying = false
         this.addedGround = 0
     }
 
@@ -54,6 +53,7 @@ class playGame extends Phaser.Scene{
 
     create() {
         //make group for floor sprites
+        this.dying = false
         this.groundGroup = this.add.group({
  
             // once a platform is removed, it's added to the pool
@@ -99,7 +99,7 @@ class playGame extends Phaser.Scene{
             frameRate: 8,
             repeat: -1
         });
-        this.physics.add.collider(this.player, this.groundGroup, function() {
+        this.groundCollider = this.physics.add.collider(this.player, this.groundGroup, function() {
             if(!this.player.anims.isPlaying){
                 this.player.anims.play("run");
             }
@@ -119,7 +119,6 @@ class playGame extends Phaser.Scene{
         //copy pasted vv
         // group with all active firecamps.
         this.fireGroup = this.add.group({
- 
             // once a firecamp is removed, it's added to the pool
             removeCallback: function(fire){
                 fire.scene.firePool.add(fire)
@@ -135,14 +134,18 @@ class playGame extends Phaser.Scene{
             }
         });
 
+        // death by collision
         this.physics.add.overlap(this.player, this.fireGroup, function(player, fire){
- 
-            this.dying = true;
-            this.player.anims.stop();
-            this.player.setFrame(2);
-            this.player.body.setVelocityY(-200);
-            this.physics.world.removeCollider(this.platformCollider);
- 
+            if (this.dying === false) {
+                this.dying = true;
+                this.player.anims.stop();
+                this.player.setFrame(9);
+                this.player.body.setVelocityY(-200);
+                this.physics.world.removeCollider(this.groundCollider);
+                this.lives = this.lives - 1
+                this.livesText.setText(`Lives: ${this.lives}`)
+            }
+            // game.time.events.add(Phaser.Timer.SECOND * 4, this.scene.restart(), this)
         }, null, this);
 
 
@@ -190,11 +193,14 @@ class playGame extends Phaser.Scene{
                     // debugger
                     let fire = this.firePool.getFirst()
                     fire.x = gameOptions.gameDisplayWidth
-                    fire.y = game.config.height - 46
+                    fire.y = game.config.height - 200
                     fire.alpha = 1
                     fire.active = true
                     fire.visible = true
                     this.firePool.remove(fire)
+                    console.log(this.firePool)
+                    console.log(fire)
+                    console.log("from pool")
                 }
                 else{
                     let num = Phaser.Math.Between(1, 3)
@@ -206,6 +212,7 @@ class playGame extends Phaser.Scene{
                         fire.anims.play("burn")
                         fire.setDepth(2)
                         this.fireGroup.add(fire)    
+                        console.log("new from group")
                     }
                     // debugger
                 }
@@ -236,6 +243,7 @@ class playGame extends Phaser.Scene{
             }
             this.player.setVelocityY(gameOptions.jumpForce * -1)
             this.playerJumps ++
+            this.player.anims.setProgress(0.25)
             this.player.anims.stop();
         }
         }
@@ -244,16 +252,42 @@ class playGame extends Phaser.Scene{
 
     update() {
         //extend ground with every update
+        if(this.player.y > game.config.height){
+            this.scene.start("PlayGame");
+        }
+
+        if (this.lives === 0) {
+            // end game
+        }
+
         if (this.minDistance > 0) {
             this.addGround()
         }
+
+        
         
 
         //have player stay in one position
         this.player.x = gameOptions.playerStartPosition
 
-        //kill old platforms
+        //recycle old platforms
         this.removeOldPlatforms()
+
+        this.fireGroup.getChildren().forEach(function(fire){
+            if(fire.x < - fire.displayWidth / 2){
+                console.log("inside if")
+                console.log(this.fireGroup)
+                this.fireGroup.killAndHide(fire);
+                this.fireGroup.remove(fire);
+                console.log(this.fireGroup)
+
+                if (!this.dying) {
+                    this.score += 1
+                    this.scoreText.setText(`Score: ${this.score}`)    
+                }
+            }
+        }, this);
+
     }
 }
 
