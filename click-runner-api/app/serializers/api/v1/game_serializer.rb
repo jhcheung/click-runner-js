@@ -1,0 +1,4 @@
+class Api::V1::GameSerializer
+  include FastJsonapi::ObjectSerializer
+  attributes :user, :user_id, :score, :score_modifier, :obstacle_modifier, :lives_modifier
+end

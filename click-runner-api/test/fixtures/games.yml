@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  score: 1
+  lives_modifier: 1.5
+  score_modifier: 1.5
+  obstacle_modifier: 1.5
+
+two:
+  user: two
+  score: 1
+  lives_modifier: 1.5
+  score_modifier: 1.5
+  obstacle_modifier: 1.5
