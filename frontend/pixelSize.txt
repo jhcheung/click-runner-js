@@ -1,0 +1,4 @@
+frameWidth: 108,
+frameHeight: 120;
+
+

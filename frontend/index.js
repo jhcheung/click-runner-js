@@ -6,17 +6,58 @@ let gameOptions = {
     playerGravity: 1000,
     jumpForce: 500,
     playerStartPosition: 200,
-    playerStartLives: 5,
+    playerStartLives: 2,
     jumps: 2,
     firePercent: 75
 }
+let b = document.createElement('button');
+b.innerText = "Start Game";
+b.id = "start";
+document.body.appendChild(b);
 
-window.onload = function() {
+document.addEventListener('click',(e)=>{
+    if (e.target.id === "start")
+    {
+        gameStart();
+        b.remove();
+    }
+});
+
+class endScreen extends Phaser.Scene{
+    constructor(){
+        super("EndScreen");
+    }
+    create(data){
+        console.log(data);
+        console.log("here");
+        this.add.text(game.config.width/2.5, game.config.height/2.2, 'Game Over', { fontSize: "64px", fontFamily: '"Roboto Condensed"' });
+        this.add.text(game.config.width/2.3, game.config.height/1.8, `Your Score : ${data}`, { fontSize: "32px", fontFamily: '"Roboto Condensed"' });
+        
+        const helloButton = this.add.text(game.config.width/2.2, game.config.height/1.5, 'Hello Phaser!', { fill: '#0f0' });
+        const resetButton = this.add.text(game.config.width/2.2, game.config.height/1.2, 'Restart!', { fill: '#0f0' });
+        resetButton.setInteractive();
+        resetButton.on('pointerdown', ()=>{
+            //passing in a string value to denote reset score
+            //Probably not necessary when game is fully implemented
+            this.scene.start('PlayGame',"0")
+        })
+        helloButton.setInteractive();
+        helloButton.on('pointerdown', ()=>{
+            //temporary
+            document.querySelector('canvas').remove();
+        })
+        // debugger
+    }
+
+}
+
+
+let gameStart = function() {
     let gameConfig = {
         type: Phaser.AUTO,
         width: gameOptions.gameDisplayWidth,
         height: 690,
-        scene: playGame,
+        scene: [playGame, endScreen],
         backgroundColor: 0x444444,
         physics: {
             default: "arcade"
@@ -51,7 +92,8 @@ class playGame extends Phaser.Scene{
  
     }
 
-    create() {
+    create(data) {
+        if (data==="0") {this.score = parseInt(data);}
         //make group for floor sprites
         this.dying = false
         this.groundGroup = this.add.group({
@@ -150,6 +192,9 @@ class playGame extends Phaser.Scene{
 
 
         this.input.keyboard.on('keydown_SPACE', this.jump, this)
+        
+        //early game over keypress for testing
+        this.input.keyboard.on('keydown_W', this.gameOver, this);
 
     }
 
@@ -249,6 +294,17 @@ class playGame extends Phaser.Scene{
         }
     }
 
+    gameOver = function() {
+ 
+        // shake the camera
+        this.cameras.main.shake(500);
+    //    debugger;
+        // end screen
+        this.time.delayedCall(500, function() {
+          this.scene.start("EndScreen", this.score+"");
+        }, [], this);
+      }
+    
 
     update() {
         //extend ground with every update
@@ -256,8 +312,8 @@ class playGame extends Phaser.Scene{
             this.scene.start("PlayGame");
         }
 
-        if (this.lives === 0) {
-            // end game
+        if (this.lives <= 0) {
+            this.gameOver();
         }
 
         if (this.minDistance > 0) {
@@ -290,7 +346,6 @@ class playGame extends Phaser.Scene{
 
     }
 }
-
 
 
 
