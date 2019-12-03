@@ -1,4 +1,5 @@
 let game;
+let flag = true;
 
 let gameOptions = {
     platformStartSpeed: 400,
@@ -6,17 +7,74 @@ let gameOptions = {
     playerGravity: 1000,
     jumpForce: 500,
     playerStartPosition: 200,
-    playerStartLives: 5,
+    playerStartLives: 2,
     jumps: 2,
     firePercent: 75
 }
+let b = document.createElement('button');
+b.innerText = "Start Game";
+b.id = "start";
+document.body.appendChild(b);
 
-window.onload = function() {
+document.addEventListener('click',(e)=>{
+    if (e.target.id === "start")
+    {
+        e.target.remove();
+        gameStart();
+        
+    }
+});
+
+class endScreen extends Phaser.Scene{
+    constructor(){
+        super("EndScreen");
+    }
+    create(data){
+        console.log(data);
+        console.log("here");
+        this.add.text(game.config.width/2.5, game.config.height/2.2, 'Game Over', { fontSize: "64px", fontFamily: '"Roboto Condensed"' });
+        this.add.text(game.config.width/2.3, game.config.height/1.8, `Your Score : ${data}`, { fontSize: "32px", fontFamily: '"Roboto Condensed"' });
+        
+        const helloButton = this.add.text(game.config.width/2.2, game.config.height/1.5, 'Hello Phaser!', { fill: '#0f0' });
+        const resetButton = this.add.text(game.config.width/2.2, game.config.height/1.2, 'Restart!', { fill: '#0f0' });
+        resetButton.setInteractive();
+        resetButton.on('pointerdown', ()=>{
+            this.sys.game.destroy(true);
+            document.querySelector('canvas').remove();
+            //passing in a string value to denote reset score
+            //Probably not necessary when game is fully implemented
+            // this.scene.start('RunnerGame',"dead")
+            let b = document.createElement('button');
+            b.innerText = "Start Game";
+            b.id = "start";
+            document.body.appendChild(b);
+            //flag= false;
+
+            // document.addEventListener('click',(e)=>{
+            //     if (e.target.id === "start")
+            //     {
+            //         b.remove();
+            //         gameStart();
+            //     }
+            // });
+        });
+        helloButton.setInteractive();
+        helloButton.on('pointerdown', ()=>{
+            //temporary
+            document.querySelector('canvas').remove();
+        })
+        // debugger
+    }
+
+}
+
+
+let gameStart = function() {
     let gameConfig = {
         type: Phaser.AUTO,
         width: gameOptions.gameDisplayWidth,
         height: 690,
-        scene: playGame,
+        scene: [startScreen, clickGame, transitionScreen, runnerGame, endScreen],
         backgroundColor: 0x444444,
         physics: {
             default: "arcade"
@@ -29,9 +87,58 @@ window.onload = function() {
     window.addEventListener("resize", resize, false);
 }
 
-class playGame extends Phaser.Scene{
+class startScreen extends Phaser.Scene{
+    constructor(){
+        super("StartScreen");
+    }
+    create(){
+        const resetButton = this.add.text(game.config.width/2.2, game.config.height/1.2, 'Start Click!', { fill: '#0f0' });
+        resetButton.setInteractive();
+        resetButton.on('pointerdown', ()=>{
+            //passing in a string value to denote reset score
+            //Probably not necessary when game is fully implemented
+            this.scene.start('ClickGame');
+        });
+    }
+}
+
+class clickGame extends Phaser.Scene{
+    constructor(){
+        super("ClickGame");
+        this.text;
+        this.timeEvent;
+    }
+    create(){
+        let func = () => {this.scene.start("TransitionScreen");}
+        this.text = this.add.text(32, 32);
+        this.timeEvent = this.time.addEvent({delay: 10000, callback: func, callbackScope: this, repeat: 1, startAt:5000});
+       
+    } 
+    update()
+    {
+        this.text.setText('Event.progress: ' + this.timeEvent.getProgress().toString().substr(0, 4) + '\nEvent.repeatCount: ' + this.timeEvent.repeatCount);
+    }
+}
+
+
+class transitionScreen extends Phaser.Scene{
+    constructor(){
+        super("TransitionScreen");
+    }
+    create(){
+        const resetButton = this.add.text(game.config.width/2.2, game.config.height/1.2, 'Start running!', { fill: '#0f0' });
+        resetButton.setInteractive();
+        resetButton.on('pointerdown', ()=>{
+            //passing in a string value to denote reset score
+            //Probably not necessary when game is fully implemented
+            this.scene.start('RunnerGame',"alive")
+        });
+    }
+}
+
+class runnerGame extends Phaser.Scene{
     constructor() {
-        super("PlayGame")
+        super("RunnerGame")
         this.score = 0
         this.lives = gameOptions.playerStartLives
         this.addedGround = 0
@@ -51,7 +158,10 @@ class playGame extends Phaser.Scene{
  
     }
 
-    create() {
+    create(data) {
+        if (data==="dead") {
+            this.score = 0;
+            this.lives = gameOptions.playerStartLives;}
         //make group for floor sprites
         this.dying = false
         this.groundGroup = this.add.group({
@@ -150,6 +260,9 @@ class playGame extends Phaser.Scene{
 
 
         this.input.keyboard.on('keydown_SPACE', this.jump, this)
+        
+        //early game over keypress for testing
+        this.input.keyboard.on('keydown_W', this.gameOver, this);
 
     }
 
@@ -249,15 +362,26 @@ class playGame extends Phaser.Scene{
         }
     }
 
+    gameOver = function() {
+ 
+        // shake the camera
+        this.cameras.main.shake(500);
+    //    debugger;
+        // end screen
+        this.time.delayedCall(500, function() {
+          this.scene.start("EndScreen", this.score+"");
+        }, [], this);
+      }
+    
 
     update() {
         //extend ground with every update
         if(this.player.y > game.config.height){
-            this.scene.start("PlayGame");
+            this.scene.start("RunnerGame","alive");
         }
 
-        if (this.lives === 0) {
-            // end game
+        if (this.lives <= 0) {
+            this.gameOver();
         }
 
         if (this.minDistance > 0) {
@@ -293,9 +417,9 @@ class playGame extends Phaser.Scene{
 
 
 
-
 function resize(){
     let canvas = document.querySelector("canvas");
+    // debugger;
     let windowWidth = window.innerWidth;
     let windowHeight = window.innerHeight;
     let windowRatio = windowWidth / windowHeight;
