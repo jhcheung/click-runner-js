@@ -12,7 +12,7 @@ class runnerGame extends Phaser.Scene{
         }
         this.load.image("platform", "public/platform.png")
         // this.load.image("player", "public/player.png")
-        this.load.spritesheet("player", "public/scottpilgrim_multiple.png", {
+        this.load.spritesheet("player", "public/click-runner-sheet-death.png", {
             frameWidth: 108,
             frameHeight: 120
         })
@@ -115,7 +115,7 @@ class runnerGame extends Phaser.Scene{
             if (this.dying === false) {
                 this.dying = true;
                 this.player.anims.stop();
-                this.player.setFrame(9);
+                this.player.setFrame(8);
                 this.player.body.setVelocityY(-200);
                 this.physics.world.removeCollider(this.groundCollider);
                 this.lives = this.lives - 1

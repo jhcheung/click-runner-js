@@ -36,7 +36,7 @@ export function gameStart() {
     game = new Phaser.Game(gameConfig)
     game.gameOptions = gameOptions
     window.focus();
-    debugger;
+    // debugger;
     resize();
     window.addEventListener("resize", resize, false);
 }
