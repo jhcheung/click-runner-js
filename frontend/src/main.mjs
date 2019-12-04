@@ -12,31 +12,16 @@ let gameOptions = {
     firePercent: 75
 }
 
-makeButton()
+import logInForm from "./logInForm.mjs"
+let logIn = new logInForm()
+logIn.signInFormListener()
+
+import runnerGame from "./runnerGame.mjs";
+import clickGame from "./clickGame.mjs";
+import { startScreen, transitionScreen, endScreen } from "./gameScreens.mjs"
 
 
-function makeButton() {
-    let b = document.createElement('button');
-    b.innerText = "Start Game";
-    b.id = "start";
-    document.body.appendChild(b);
-    
-    document.addEventListener('click',(e)=>{
-        if (e.target.id === "start")
-        {
-            e.target.remove();
-            gameStart();
-            
-        }
-    });    
-}
-
-import runnerGame from "./runnerGame.js";
-import clickGame from "./clickGame.js";
-import { startScreen, transitionScreen, endScreen } from "./gameScreens.js"
-
-
-let gameStart = function() {
+export function gameStart() {
     let gameConfig = {
         type: Phaser.AUTO,
         width: gameOptions.gameDisplayWidth,
@@ -51,6 +36,7 @@ let gameStart = function() {
     game = new Phaser.Game(gameConfig)
     game.gameOptions = gameOptions
     window.focus();
+    debugger;
     resize();
     window.addEventListener("resize", resize, false);
 }
@@ -58,7 +44,6 @@ let gameStart = function() {
 
 function resize(){
     let canvas = document.querySelector("canvas");
-    // debugger;
     let windowWidth = window.innerWidth;
     let windowHeight = window.innerHeight;
     let windowRatio = windowWidth / windowHeight;
@@ -72,3 +57,4 @@ function resize(){
         canvas.style.height = windowHeight + "px";
     }
 }
+

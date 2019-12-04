@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
 	<head>
+        <link rel="stylesheet" type="text/css" href="./public/main.css">        
         <style type = "text/css">
-            body{
+            /* body{
                 background: #000000;
                 padding: 0px;
                 margin: 0px;
-            }
+            } */
             canvas{
                 display:block;
                 margin: 0;
@@ -16,12 +17,18 @@
                 transform: translate(-50%, -50%);
             }
         </style>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:700,600' rel='stylesheet' type='text/css'>
         <script defer src = "src/phaser.min.js"></script>
-        <script defer type="module" src = "src/main.js" ></script>
+        <script defer type="module" src = "src/main.mjs" ></script>
     </head>
 	<body>
-        <form id="login_form">
-            <input>
+        <form id="user_form">
+            <div class="box">
+                <h1>Log In</h1>
+                <input id="user_name" class="name" type="text" required/>
+                    <br>
+                <input id="sign_in" class="btn" type="submit" value="Sign In"/>
+                </div>
         </form>
 	</body>
 </html>

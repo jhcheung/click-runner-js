@@ -228,7 +228,7 @@ class runnerGame extends Phaser.Scene{
         }
     }
 
-    gameOver = function() {
+    gameOver () {
  
         // shake the camera
         this.cameras.main.shake(500);

@@ -7,9 +7,9 @@ class Api::V1::UsersController < ApplicationController
     end
 
     def create
-        user = User.new(user_params)
+        user = User.find_or_create_by(user_params)
 
-        if user.save
+        if user.valid?
             render json: Api::V1::UserSerializer.new(user)
         else
             render json: user.errors, status: :unprocessable_entity
