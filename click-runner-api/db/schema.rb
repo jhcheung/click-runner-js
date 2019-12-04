@@ -12,8 +12,11 @@
 
 ActiveRecord::Schema.define(version: 2019_12_03_184524) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "games", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.integer "score"
     t.float "lives_modifier"
     t.float "score_modifier"

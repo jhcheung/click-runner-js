@@ -23,11 +23,11 @@ class runnerGame extends Phaser.Scene{
  
     }
 
-    create(data) {
-        if (data==="dead") {
-            this.score = 0;
-            this.lives = this.gameOptions.playerStartLives;
-        }
+    create() {
+        // if (data==="dead") {
+        //     this.score = 0;
+        //     this.lives = this.gameOptions.playerStartLives;
+        // }
         //make group for floor sprites
         this.dying = false
         this.groundGroup = this.add.group({
