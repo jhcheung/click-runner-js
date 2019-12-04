@@ -22,31 +22,37 @@ class startMenu {
     }
 
     checkOptions(e) {
-        if (e.target.id === "log_out") {
+        let ex = document.querySelector('canvas');
+        if (!ex)
+        { 
+            if (e.target.id === "log_out") {
+            // e.target.remove();
             location.reload()
         } else if (e.target.id === "start_game") {
-            gameStart()
+            // e.target.remove();
+            gameStart();
         } else if (e.target.id === "leaderboard") {
             //add leaderboard logic
+        }
         }
     }
     
 
-    makeButton() {
-        let b = document.createElement('button');
-        b.innerText = "Start Game";
-        b.id = "start";
-        document.body.appendChild(b);
+    // makeButton() {
+    //     let b = document.createElement('button');
+    //     b.innerText = "Start Game";
+    //     b.id = "start";
+    //     document.body.appendChild(b);
         
-        document.addEventListener('click',(e)=>{
-            if (e.target.id === "start")
-            {
-                e.target.remove();
-                gameStart();
+    //     document.addEventListener('click',(e)=>{
+    //         if (e.target.id === "start")
+    //         {
+    //             e.target.remove();
+    //             gameStart();
                 
-            }
-        });    
-    }
+    //         }
+    //     });    
+    // }
 
 
 

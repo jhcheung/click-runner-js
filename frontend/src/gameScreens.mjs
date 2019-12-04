@@ -25,7 +25,19 @@ export class transitionScreen extends Phaser.Scene{
     constructor(){
         super("TransitionScreen");
     }
-    create(){
+    create(data){
+        console.log(data);
+        // debugger;
+        let x = 1;
+        let scoreheight = this.game.config.height;
+        let scoreheightOffset = scoreheight/3.2;
+        let game = this;
+        Object.values(data).forEach((value)=>{
+            game.add.text(game.game.config.width/2.2, scoreheightOffset, `Total Gem${x}: ${value}`, {fill: '#0f0'});
+            scoreheightOffset += 25;
+            x+=1;
+        });
+        //const score1 = this.add.text(this.game.config.width/2.2, this.game.config.height/3.2, data.gem1, {fill: '#0f0'});
         const resetButton = this.add.text(this.game.config.width/2.2, this.game.config.height/1.2, 'Start running!', { fill: '#0f0' });
         resetButton.setInteractive();
         resetButton.on('pointerdown', ()=>{

@@ -31,9 +31,31 @@ class clickGame extends Phaser.Scene{
         let func = () => {
             console.log(counter++);
             
-            if (counter === 10){
-                //debugger
-                this.scene.start("TransitionScreen");
+            if (counter === 2){
+            let gemCounter = this.gemCounter;
+                
+            this.gemGroup.getChildren().forEach((gem)=>{
+                switch(gem.name){
+                    case "gem1":
+                        gemCounter.gem1 += gem.clickCount;
+                        break;
+                    case "gem2":
+                        gemCounter.gem2 += gem.clickCount;
+                        break;
+                    case "gem3":
+                        gemCounter.gem3 += gem.clickCount;
+                        break;
+                    case "gem4":
+                        gemCounter.gem4 += gem.clickCount;
+                        break;
+                    case "gem5":
+                        gemCounter.gem5 += gem.clickCount;
+                        break;
+                }
+            });
+            // debugger
+            
+                this.scene.start("TransitionScreen",this.gemCounter);
             }
             else {
                 this.renderGems(this.gemGroup, this.gemCounter);
@@ -54,7 +76,7 @@ class clickGame extends Phaser.Scene{
         this.gemGroup = this.add.group();
         this.renderGems(this.gemGroup, this.gemCounter);
         this.text = this.add.text(32, 32);
-        this.timeEvent = this.time.addEvent({delay: 3000, callback: func, callbackScope: this, repeat: 10});
+        this.timeEvent = this.time.addEvent({delay: 3000, callback: func, callbackScope: this, repeat: 1});
 
        
     } 
