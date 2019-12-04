@@ -1,16 +1,35 @@
 import {gameStart} from './main.mjs'
 
 class startMenu {
+    constructor() {
+        this.bodyBox = document.querySelector('div.box')
+    }
+
     renderStartMenu() {
         const startMenuHTML = `
-            <div class="box">
                 <h1>Menu</h1>
-                <input id="user_name" class="name" type="text" required/>
+                <button class="menu red" id="start_game">Start Game</button>
                 <br>
-                <input id="sign_in" class="btn" type="submit" value="Sign In"/>
-                </div>
+                <button class="menu" id="leaderboard">Leaderboard</button>
+                <br>
+                <button class="menu grey" id="log_out">Log Out</button>
+                <br>
         `
+        this.bodyBox.innerHTML = startMenuHTML
+
+        this.bodyBox.addEventListener('click', this.checkOptions)
     }
+
+    checkOptions(e) {
+        if (e.target.id === "log_out") {
+            location.reload()
+        } else if (e.target.id === "start_game") {
+            gameStart()
+        } else if (e.target.id === "leaderboard") {
+            //add leaderboard logic
+        }
+    }
+    
 
     makeButton() {
         let b = document.createElement('button');
@@ -27,6 +46,8 @@ class startMenu {
             }
         });    
     }
+
+
 
 }
 

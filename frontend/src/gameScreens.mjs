@@ -3,7 +3,7 @@ export class startScreen extends Phaser.Scene{
         super("StartScreen");
     }
     create(){
-        const resetButton = this.add.text(this.game.config.width/2.2, this.game.config.height/1.2, 'Start Click!', { fill: '#0f0' });
+        const resetButton = this.add.text(this.game.config.width/2.2, this.game.config.height/1.2, 'Click When Ready', { fontSize: "20px", fontFamily: 'Verdana, "Times New Roman", Tahoma, serif', fill: '#0f0' });
         resetButton.setInteractive();
         resetButton.on('pointerdown', ()=>{
             //passing in a string value to denote reset score
