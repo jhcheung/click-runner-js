@@ -1,7 +1,8 @@
 import {gameStart} from './main.mjs'
 
 class startMenu {
-    constructor() {
+    constructor(userId) {
+        this.userId = userId
         this.bodyBox = document.querySelector('div.box')
     }
 

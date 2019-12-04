@@ -1,24 +1,24 @@
 body{
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Comic Sans MS';
     background:#3498db;
     margin: 0 auto 0 auto;  
     width:100%; 
     text-align:center;
     margin: 20px 0px 20px 0px;   
-  }
+}
   
-  p{
+p{
     font-size:12px;
     text-decoration: none;
     color:#ffffff;
-  }
-  
-  h1{
+}
+
+h1{
     font-size:1.5em;
     color:#525252;
-  }
+}
   
-  .box{
+.box{
     background:white;
     width:300px;
     border-radius:6px;
@@ -30,9 +30,9 @@ body{
     margin: 0 auto 0 auto;
     padding:0px 0px 0px 0px;
     border: #2980b9 4px solid; 
-  }
+}
   
-  .name{
+.name{
     background:#ecf0f1;
     border: #ccc 1px solid;
     border-bottom: #ccc 2px solid;
@@ -42,9 +42,10 @@ body{
     margin-top:10px;
     font-size:1em;
     border-radius:4px;
-  }
+}
 
-  .btn{
+.btn{
+    font-family: 'Comic Sans MS';
     background:#2ecc71;
     width:125px;
     padding-top:5px;
@@ -57,9 +58,10 @@ body{
     margin-left:16px;
     font-weight:800;
     font-size:0.8em;
-  }
+}
   
-  .menu {
+.menu {
+    font-family: 'Comic Sans MS';
     /* display: block; */
     width: 80%;
     border-radius:4px;
@@ -77,19 +79,19 @@ body{
     font-weight:800;
     font-size:0.8em;
     color:whitesmoke;
-  } 
+} 
 
-  .menu.red {
+.menu.red {
     background-color: rgb(195, 2, 2);
     border: #6b061f 1px solid;
-  }
+}
 
-  .menu.grey {
+.menu.grey {
     background-color: rgb(66, 65, 65);
     border: #363031 1px solid;
-  }
+}
 
-  .btn:hover{
+.btn:hover{
     background:#2CC06B; 
-  }
+}
   

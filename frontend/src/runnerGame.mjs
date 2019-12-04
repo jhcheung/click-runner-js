@@ -213,9 +213,7 @@ class runnerGame extends Phaser.Scene{
         }, this);
     }
 
-    jump(event){
-        console.log(event);
-        if(event.code === "Space"){
+    jump(){
         if(this.player.body.touching.down || (this.playerJumps > 0 && this.playerJumps < this.gameOptions.jumps)){
             if(this.player.body.touching.down){
                 this.playerJumps = 0
@@ -225,7 +223,7 @@ class runnerGame extends Phaser.Scene{
             this.player.anims.setProgress(0.25)
             this.player.anims.stop();
         }
-        }
+        
     }
 
     gameOver () {
@@ -243,7 +241,7 @@ class runnerGame extends Phaser.Scene{
     update() {
         //extend ground with every update
         if(this.player.y > this.game.config.height){
-            this.scene.start("RunnerGame","alive");
+            this.scene.start("RunnerGame","");
         }
 
         if (this.lives <= 0) {

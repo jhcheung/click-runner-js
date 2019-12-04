@@ -27,7 +27,7 @@ export function gameStart() {
         width: gameOptions.gameDisplayWidth,
         height: 690,
         scene: [startScreen, clickGame, transitionScreen, runnerGame, endScreen],
-        backgroundColor: 0x444444,
+        backgroundColor: 0x4A5A7A,
         physics: {
             default: "arcade"
         },

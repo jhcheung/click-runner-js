@@ -3,7 +3,15 @@ export class startScreen extends Phaser.Scene{
         super("StartScreen");
     }
     create(){
-        const resetButton = this.add.text(this.game.config.width/2.2, this.game.config.height/1.2, 'Click When Ready', { fontSize: "20px", fontFamily: 'Verdana, "Times New Roman", Tahoma, serif', fill: '#0f0' });
+
+        const instructions = "You are an explorer seeking valuable treasures in an unnamed dungeon. In the first part of the game, put your plunde— mining skills to the test! \nClick the gems as they appear on the screen to mine them. \nOh no! After 30 seconds of mining, it seems that the dungeon has noticed you. It’s time to escape! \nUse the space bar in order to jump over obstacles as they appear on the screen. Luckily, you have the gems you gathered to help, as they will grant you magic powers! \n * Emeralds - Emeralds will grant you additional lives. Wow! \n * Sapphires - Sapphires will grant you a higher score multiplier. \n * Rubys - Rubies will ward off obstacles. You’ll encounter fewer obstacles as you run. \n\nGood luck!"
+        const instructionsText = this.add.text(0, 0, instructions, { fontSize: "20px", fontFamily: 'Comic Sans MS', fill: 'whitesmoke', wordWrap: { width: 1300 },     padding: {
+            left: 30,
+            right: 30,
+            top: 100,
+            bottom: 100,
+        }});
+        const resetButton = this.add.text(this.game.config.width/2, this.game.config.height/1.2, 'Click When Ready', { fontSize: "20px", fontFamily: 'Comic Sans MS', fill: '#0f0' });
         resetButton.setInteractive();
         resetButton.on('pointerdown', ()=>{
             //passing in a string value to denote reset score
@@ -23,7 +31,7 @@ export class transitionScreen extends Phaser.Scene{
         resetButton.on('pointerdown', ()=>{
             //passing in a string value to denote reset score
             //Probably not necessary when game is fully implemented
-            this.scene.start('RunnerGame',"alive")
+            this.scene.start('RunnerGame')
         });
     }
 }
@@ -47,10 +55,10 @@ export class endScreen extends Phaser.Scene{
             //passing in a string value to denote reset score
             //Probably not necessary when game is fully implemented
             // this.scene.start('RunnerGame',"dead")
-            let b = document.createElement('button');
-            b.innerText = "Start Game";
-            b.id = "start";
-            document.body.appendChild(b);
+            // let b = document.createElement('button');
+            // b.innerText = "Start Game";
+            // b.id = "start";
+            // document.body.appendChild(b);
             //flag= false;
 
             // document.addEventListener('click',(e)=>{

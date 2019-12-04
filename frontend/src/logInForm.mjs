@@ -33,7 +33,7 @@ class logInForm {
             })
             .then(data => { 
                 if (data.data.type === 'user') {
-                    const startMenu1 = new startMenu()
+                    const startMenu1 = new startMenu(data.data.attributes.id)
                     startMenu1.renderStartMenu()
                 }
              })
