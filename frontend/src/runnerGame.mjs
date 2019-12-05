@@ -3,6 +3,7 @@ class runnerGame extends Phaser.Scene{
         super("RunnerGame")
         this.score = 0
         this.addedGround = 0
+        this.clickScore
     }
 
     preload() {
@@ -25,6 +26,7 @@ class runnerGame extends Phaser.Scene{
     }
 
     create(clickScore) {
+        this.clickScore = clickScore
         let [scoreMulti, jumpHeightMod, jumpStrengthMod, livesMod, obsMod] = Object.values(clickScore);
         //debugger;
         // if (data==="dead") {
@@ -93,14 +95,6 @@ class runnerGame extends Phaser.Scene{
         this.scoreText = this.add.text(16, 30, `Score: ${this.score}`, { fontSize: '32px', fill: '#000' });
         this.livesText = this.add.text(this.gameOptions.gameDisplayWidth - 170, 30, `Lives: ${this.lives}`, { fontSize: '32px', fill: '#000' });
 
-
-        this.ceilingCollider = this.physics.add.collider(this.player, this.ceilingGroup)
-        
-        this.groundCollider = this.physics.add.collider(this.player, this.groundGroup, function() {
-            if(!this.player.anims.isPlaying){
-                this.player.anims.play("run");
-            }
-        }, null, this)
         
         //set up animation
         if (!this.anims.anims.entries.run){
@@ -125,15 +119,15 @@ class runnerGame extends Phaser.Scene{
         // debugger;
         if (!this.anims.anims.entries.burn){
 
-        this.anims.create({
-            key: "burn",
-            frames: this.anims.generateFrameNumbers("fire", {
-                start: 0,
-                end: 4
-            }),
-            frameRate: 15,
-            repeat: -1
-        });
+            this.anims.create({
+                key: "burn",
+                frames: this.anims.generateFrameNumbers("fire", {
+                    start: 0,
+                    end: 4
+                }),
+                frameRate: 15,
+                repeat: -1
+            });
         }
  
         
@@ -303,13 +297,38 @@ class runnerGame extends Phaser.Scene{
         this.time.delayedCall(500, function() {
           this.scene.start("EndScreen", this.score+"");
         }, [], this);
-      }
+        this.updateGame()
+    }
     
+    updateGame() {
+        const gameUrl = `http://localhost:3000/api/v1/games/${this.game.gameId}`
+
+        let patchObj = {
+            method: "PATCH",
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            },
+            body: JSON.stringify({
+                score: this.score,
+                lives_modifier: this.clickScore.gem1,
+                score_modifier: this.clickScore.gem2,
+                obstacle_modifier: this.clickScore.gem3,
+                jump_num_modifier: this.clickScore.gem4,
+                jump_heigh_modifier: this.clickScore.gem5,
+            })
+        }
+
+        fetch(gameUrl, patchObj)
+            .then(resp => resp.json())
+            .then(json => {
+            })
+    }
 
     update() {
         //extend ground with every update
         if(this.player.y > this.game.config.height){
-            this.scene.restart;
+            this.scene.restart();
         }
 
         if (this.lives <= 0) {
@@ -331,11 +350,8 @@ class runnerGame extends Phaser.Scene{
 
         this.fireGroup.getChildren().forEach(function(fire){
             if(fire.x < - fire.displayWidth / 2){
-                console.log("inside if")
-                console.log(this.fireGroup)
                 this.fireGroup.killAndHide(fire);
                 this.fireGroup.remove(fire);
-                console.log(this.fireGroup)
 
                 if (!this.dying) {
                     this.score += 1

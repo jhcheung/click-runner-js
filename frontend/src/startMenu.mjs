@@ -5,6 +5,27 @@ class startMenu {
     constructor(userId) {
         this.userId = userId
         this.bodyBox = document.querySelector('div.box')
+        this.createGame = function() {
+            const createGameObj = {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json'
+                },
+                body: JSON.stringify({
+                    user_id: this.userId
+                })
+        
+            }
+            fetch('http://localhost:3000/api/v1/games', createGameObj)
+                .then(resp => {
+                    return resp.json()
+                })
+                .then(json => {
+                    gameStart(this.userId, parseInt(json.data.id));
+                })
+        }
+    
     }
 
     renderStartMenu() {
@@ -21,7 +42,7 @@ class startMenu {
         this.bodyBox.addEventListener('click', (e) => this.checkOptions(e))
     }
 
-    checkOptions(e, userId) {
+    checkOptions(e) {
         let ex = document.querySelector('canvas');
         if (!ex)
         { 
@@ -30,13 +51,15 @@ class startMenu {
             location.reload()
         } else if (e.target.id === "start_game") {
             // e.target.remove();
-            gameStart(this.userId);
+            this.createGame()
         } else if (e.target.id === "leaderboard") {
             //add leaderboard logic
             leaderboard.prototype.fetchGames()
         }
         }
     }
+
+
     
 
     // makeButton() {

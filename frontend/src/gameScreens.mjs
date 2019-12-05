@@ -28,16 +28,9 @@ export class startScreen extends Phaser.Scene{
             //Probably not necessary when game is fully implemented
             this.scene.start('ClickGame');
         });
-
     
     }
 
-    createGame() {
-        let createGameObj = {
-            method: "Post"
-        }
-        fetch('http://localhost:3000/api/v1/games')
-    }
 }
 
 export class transitionScreen extends Phaser.Scene{
@@ -56,6 +49,7 @@ export class transitionScreen extends Phaser.Scene{
             scoreheightOffset += 25;
             x+=1;
         });
+        
         //const score1 = this.add.text(this.game.config.width/2.2, this.game.config.height/3.2, clickScore.gem1, {fill: '#0f0'});
         const resetButton = this.add.text(this.game.config.width/2.2, this.game.config.height/1.2, 'Start running!', { fill: '#0f0' });
         resetButton.setInteractive();
