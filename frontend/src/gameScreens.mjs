@@ -11,12 +11,23 @@ export class startScreen extends Phaser.Scene{
             bottom: 100,
         }});
         const resetButton = this.add.text(this.game.config.width/2, this.game.config.height/1.2, 'Click When Ready', { fontSize: "20px", fontFamily: 'Comic Sans MS', fill: '#0f0' });
+
+
         resetButton.setInteractive();
         resetButton.on('pointerdown', ()=>{
             //passing in a string value to denote reset score
             //Probably not necessary when game is fully implemented
             this.scene.start('ClickGame');
         });
+
+    
+    }
+
+    createGame() {
+        let createGameObj = {
+            method: "Post"
+        }
+        fetch('http://localhost:3000/api/v1/games')
     }
 }
 

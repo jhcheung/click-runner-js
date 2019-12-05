@@ -17,14 +17,14 @@ ActiveRecord::Schema.define(version: 2019_12_04_211650) do
 
   create_table "games", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.integer "score"
-    t.float "lives_modifier"
-    t.float "score_modifier"
-    t.float "obstacle_modifier"
+    t.integer "score", default: 0
+    t.float "lives_modifier", default: 0.0
+    t.float "score_modifier", default: 0.0
+    t.float "obstacle_modifier", default: 0.0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.float "jump_num_modifier"
-    t.float "jump_height_modifier"
+    t.float "jump_num_modifier", default: 0.0
+    t.float "jump_height_modifier", default: 0.0
     t.index ["user_id"], name: "index_games_on_user_id"
   end
 

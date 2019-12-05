@@ -96,7 +96,7 @@ class clickGame extends Phaser.Scene{
                 repeat: -1
             });
         }
-        debugger;
+        // debugger;
         // this.anims.create({
         //     key: "gem",
         //     frames: this.anims.generateFrameNumbers("ruby", {
