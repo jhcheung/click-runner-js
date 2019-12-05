@@ -103,6 +103,7 @@ class runnerGame extends Phaser.Scene{
         }, null, this)
         
         //set up animation
+        if (!this.anims.anims.entries.run){
         this.anims.create({
             key: "run",
             frames: this.anims.generateFrameNumbers("player", {
@@ -113,6 +114,17 @@ class runnerGame extends Phaser.Scene{
             repeat: -1
         });
 
+         }   
+        this.ceilingCollider = this.physics.add.collider(this.player, this.ceilingGroup)
+        
+        this.groundCollider = this.physics.add.collider(this.player, this.groundGroup, function() {
+            if(!this.player.anims.isPlaying){
+                this.player.anims.play("run");
+            }
+        }, null, this)
+        debugger;
+        if (!this.anims.anims.entries.burn){
+
         this.anims.create({
             key: "burn",
             frames: this.anims.generateFrameNumbers("fire", {
@@ -122,6 +134,7 @@ class runnerGame extends Phaser.Scene{
             frameRate: 15,
             repeat: -1
         });
+        }
  
         
         //copy pasted vv

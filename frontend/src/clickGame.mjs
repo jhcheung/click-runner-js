@@ -84,17 +84,28 @@ class clickGame extends Phaser.Scene{
                 // debugger;
             }
         }
-
-
-        this.anims.create({
-            key: "gem",
-            frames: this.anims.generateFrameNumbers("ruby", {
-                start: 0,
-                end: 8
-            }),
-            frameRate: 15,
-            repeat: -1
-        });
+        for (let i = 1 ; i <= Object.values(gemObj).length ; i++)
+        {
+            this.anims.create({
+                key: gemObj[i],
+                frames: this.anims.generateFrameNumbers(gemObj[i], {
+                    start: 0,
+                    end: 8
+                }),
+                frameRate: 10,
+                repeat: -1
+            });
+        }
+        debugger;
+        // this.anims.create({
+        //     key: "gem",
+        //     frames: this.anims.generateFrameNumbers("ruby", {
+        //         start: 0,
+        //         end: 8
+        //     }),
+        //     frameRate: 15,
+        //     repeat: -1
+        // });
         this.gemGroup = this.add.group();
         this.renderGems(this.gemGroup, this.gemCounter);
         this.text = this.add.text(32, 32);
@@ -218,6 +229,9 @@ class clickGame extends Phaser.Scene{
     }
     randHeight(){
         return Math.round(Math.random() * this.game.config.height);
+    }
+    getRandomGemIndex(){
+       let rand = Math.ceil(Math.random() * Object.values(gemObj).length)
     }
 }
 
