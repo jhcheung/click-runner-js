@@ -24,25 +24,25 @@ export class transitionScreen extends Phaser.Scene{
     constructor(){
         super("TransitionScreen");
     }
-    create(data){
-        console.log(data);
+    create(clickScore){
+        console.log(clickScore);
         // debugger;
         let x = 1;
         let scoreheight = this.game.config.height;
         let scoreheightOffset = scoreheight/3.2;
         let game = this;
-        Object.values(data).forEach((value)=>{
+        Object.values(clickScore).forEach((value)=>{
             game.add.text(game.game.config.width/2.2, scoreheightOffset, `Total Gem${x}: ${value}`, {fill: '#0f0'});
             scoreheightOffset += 25;
             x+=1;
         });
-        //const score1 = this.add.text(this.game.config.width/2.2, this.game.config.height/3.2, data.gem1, {fill: '#0f0'});
+        //const score1 = this.add.text(this.game.config.width/2.2, this.game.config.height/3.2, clickScore.gem1, {fill: '#0f0'});
         const resetButton = this.add.text(this.game.config.width/2.2, this.game.config.height/1.2, 'Start running!', { fill: '#0f0' });
         resetButton.setInteractive();
         resetButton.on('pointerdown', ()=>{
             //passing in a string value to denote reset score
             //Probably not necessary when game is fully implemented
-            this.scene.start('RunnerGame')
+            this.scene.start('RunnerGame', clickScore)
         });
     }
 }

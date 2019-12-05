@@ -1,5 +1,11 @@
 
-
+let gemObj = {
+    1: "ruby",
+    2: "diamond",
+    3: "sapphire",
+    4: "emerald",
+    5: "amethyst"
+}
 
 class clickGame extends Phaser.Scene{
     constructor(){
@@ -19,9 +25,25 @@ class clickGame extends Phaser.Scene{
     preload() {
         this.gameOptions = this.game.gameOptions
        
-        this.load.spritesheet("fire", "public/fire.png", {
-            frameWidth: 40,
-            frameHeight: 70
+        this.load.spritesheet("ruby", "public/ruby-sheet.png", {
+            frameWidth: 64,
+            frameHeight: 64
+        });
+        this.load.spritesheet("diamond", "public/diamond-sheet.png", {
+            frameWidth: 64,
+            frameHeight: 64
+        });
+        this.load.spritesheet("sapphire", "public/sapphire-sheet.png", {
+            frameWidth: 64,
+            frameHeight: 64
+        });
+        this.load.spritesheet("emerald", "public/emerald-sheet.png", {
+            frameWidth: 64,
+            frameHeight: 64
+        });
+        this.load.spritesheet("amethyst", "public/amethyst-sheet.png", {
+            frameWidth: 64,
+            frameHeight: 64
         });
  
     }
@@ -66,9 +88,9 @@ class clickGame extends Phaser.Scene{
 
         this.anims.create({
             key: "gem",
-            frames: this.anims.generateFrameNumbers("fire", {
+            frames: this.anims.generateFrameNumbers("ruby", {
                 start: 0,
-                end: 4
+                end: 8
             }),
             frameRate: 15,
             repeat: -1
@@ -131,7 +153,7 @@ class clickGame extends Phaser.Scene{
         //     this.gem5.destroy();
         // }
         for (let i = 1; i <= 5; i++){
-            let gem = this.add.sprite(this.randWidth(), this.randHeight(), "fire");
+            let gem = this.add.sprite(this.randWidth(), this.randHeight(), "ruby");
             gem.name = `gem${i}`;
             gem.anims.play("gem");
             gem.clickCount = 0;
@@ -188,6 +210,7 @@ class clickGame extends Phaser.Scene{
     incGem(){
         console.log(this.clickCount++);
         this.anims.stop();
+        this.setFrame(9);
         // console.log('clicked');
     }
     randWidth(){

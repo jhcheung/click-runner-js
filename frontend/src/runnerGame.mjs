@@ -10,7 +10,7 @@ class runnerGame extends Phaser.Scene{
         if (!this.lives) {
             this.lives = this.gameOptions.playerStartLives
         }
-        this.load.image("platform", "public/platform.png")
+        this.load.image("platform", "public/newplatform.png")
         // this.load.image("player", "public/player.png")
         this.load.image("ceiling", "public/platform.png")
         this.load.spritesheet("player", "public/click-runner-sheet-death.png", {
@@ -24,7 +24,9 @@ class runnerGame extends Phaser.Scene{
  
     }
 
-    create() {
+    create(clickScore) {
+        let [scoreMulti, jumpHeightMod, jumpStrengthMod, livesMod, obsMod] = Object.values(clickScore);
+        //debugger;
         // if (data==="dead") {
         //     this.score = 0;
         //     this.lives = this.gameOptions.playerStartLives;
@@ -65,11 +67,12 @@ class runnerGame extends Phaser.Scene{
 
 
         // make initial floor
-        let groundStart = this.physics.add.sprite(this.game.config.width / 2, this.game.config.height * 0.8, 'platform')
-        groundStart.setImmovable(true);
-        groundStart.setVelocityX(this.gameOptions.platformStartSpeed * -1);
-        groundStart.displayWidth = this.gameOptions.gameDisplayWidth;
-        this.groundGroup.add(groundStart)
+
+        let groundPlatform = this.physics.add.sprite(this.game.config.width / 2, this.game.config.height * 0.78, 'platform')
+        groundPlatform.setImmovable(true);
+        groundPlatform.setVelocityX(this.gameOptions.platformStartSpeed * -1);
+        groundPlatform.displayWidth = this.gameOptions.gameDisplayWidth;
+        this.groundGroup.add(groundPlatform)
 
         // make initial ceiling
         let ceilingStart = this.physics.add.sprite(this.game.config.width / 2, 0, 'ceiling')
@@ -169,7 +172,7 @@ class runnerGame extends Phaser.Scene{
         if(this.groundPool.getLength()){
             ground = this.groundPool.getFirst();
             ground.x = this.game.config.width;
-            ground.y = this.game.config.height * 0.8;
+            ground.y = this.game.config.height * 0.78;
             ground.active = true;
             ground.visible = true;
             this.groundPool.remove(ground);
@@ -178,7 +181,7 @@ class runnerGame extends Phaser.Scene{
             ground.tileScaleX = 1 / ground.scaleX;
         }
         else{
-            ground = this.add.tileSprite(this.game.config.width, this.game.config.height * 0.8, this.game.config.width * 1.5, 32, "platform");
+            ground = this.add.tileSprite(this.game.config.width, this.game.config.height * 0.78, this.game.config.width * 1.5, 48, "platform");
             this.physics.add.existing(ground);
             ground.body.setImmovable(true);
             ground.body.setVelocityX(- this.gameOptions.platformStartSpeed);
