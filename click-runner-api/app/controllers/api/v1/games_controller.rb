@@ -3,7 +3,7 @@ class Api::V1::GamesController < ApplicationController
 
     def index
         games = Game.all
-        render json: Api::V1::UserSerializer.new(games)
+        render json: Api::V1::GameSerializer.new(games)
     end
 
     def create
@@ -35,7 +35,7 @@ class Api::V1::GamesController < ApplicationController
     def destroy
         game = @game.destroy
 
-        render json: Api::V1::UserSerializer.new(user)
+        render json: Api::V1::GameSerializer.new(user)
 
     end
 

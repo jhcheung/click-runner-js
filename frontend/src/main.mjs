@@ -8,8 +8,8 @@ let gameOptions = {
     jumpForce: 500,
     playerStartPosition: 200,
     playerStartLives: 2,
-    jumps: 2,
-    firePercent: 75
+    jumps: 100,
+    firePercent: 100
 }
 
 import logInForm from "./logInForm.mjs"
