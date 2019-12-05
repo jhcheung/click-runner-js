@@ -12,6 +12,7 @@ class runnerGame extends Phaser.Scene{
         }
         this.load.image("platform", "public/newplatform.png")
         // this.load.image("player", "public/player.png")
+        this.load.image("ceiling", "public/platform.png")
         this.load.spritesheet("player", "public/click-runner-sheet-death.png", {
             frameWidth: 108,
             frameHeight: 120
@@ -48,12 +49,38 @@ class runnerGame extends Phaser.Scene{
             }
         });
 
+        this.ceilingGroup = this.add.group({
+ 
+            // once a platform is removed, it's added to the pool
+            removeCallback: function(platform){
+                platform.scene.groundPool.add(platform)
+            }
+        });
+
+        this.ceilingPool = this.add.group({
+            // once a platform is removed from the pool, it's added to the active platforms group
+            removeCallback: function(platform){
+                platform.scene.groundGroup.add(platform)
+            }
+        });
+
+
+
         // make initial floor
+
         let groundPlatform = this.physics.add.sprite(this.game.config.width / 2, this.game.config.height * 0.78, 'platform')
         groundPlatform.setImmovable(true);
         groundPlatform.setVelocityX(this.gameOptions.platformStartSpeed * -1);
         groundPlatform.displayWidth = this.gameOptions.gameDisplayWidth;
         this.groundGroup.add(groundPlatform)
+
+        // make initial ceiling
+        let ceilingStart = this.physics.add.sprite(this.game.config.width / 2, 0, 'ceiling')
+        ceilingStart.setImmovable(true);
+        ceilingStart.setVelocityX(this.gameOptions.platformStartSpeed * -1);
+        ceilingStart.displayWidth = this.gameOptions.gameDisplayWidth;
+        this.ceilingGroup.add(ceilingStart)
+
         
         // consec jumps
         this.playerJumps = 0
@@ -63,8 +90,8 @@ class runnerGame extends Phaser.Scene{
         this.player.setGravityY(this.gameOptions.playerGravity);
         
         // set up score
-        this.scoreText = this.add.text(16, 16, `Score: ${this.score}`, { fontSize: '32px', fill: '#000' });
-        this.livesText = this.add.text(this.gameOptions.gameDisplayWidth - 170, 16, `Lives: ${this.lives}`, { fontSize: '32px', fill: '#000' });
+        this.scoreText = this.add.text(16, 30, `Score: ${this.score}`, { fontSize: '32px', fill: '#000' });
+        this.livesText = this.add.text(this.gameOptions.gameDisplayWidth - 170, 30, `Lives: ${this.lives}`, { fontSize: '32px', fill: '#000' });
 
 
         //set up animation
@@ -77,6 +104,8 @@ class runnerGame extends Phaser.Scene{
             frameRate: 8,
             repeat: -1
         });
+        this.ceilingCollider = this.physics.add.collider(this.player, this.ceilingGroup)
+        
         this.groundCollider = this.physics.add.collider(this.player, this.groundGroup, function() {
             if(!this.player.anims.isPlaying){
                 this.player.anims.play("run");
@@ -136,7 +165,6 @@ class runnerGame extends Phaser.Scene{
 
     addGround(){
         this.addedGround ++;
-        console.log(this.addedGround)
 
         let ground;
         if(this.groundPool.getLength()){
@@ -158,6 +186,28 @@ class runnerGame extends Phaser.Scene{
             ground.setDepth(2);
             this.groundGroup.add(ground);
         }
+
+        let ceiling;
+        if(this.ceilingPool.getLength()){
+            ceiling = this.ceilingPool.getFirst();
+            ceiling.x = this.game.config.width;
+            ceiling.y = this.game.config.height * 0.8;
+            ceiling.active = true;
+            ceiling.visible = true;
+            this.ceilingPool.remove(ceiling);
+            // let newRatio =  ceilingWidth / ceiling.displayWidth;
+            ceiling.displayWidth = this.gameOptions.gameDisplayWidth;
+            ceiling.tileScaleX = 1 / ceiling.scaleX;
+        }
+        else{
+            ceiling = this.add.tileSprite(this.game.config.width, 0, this.game.config.width * 1.5, 32, "ceiling");
+            this.physics.add.existing(ceiling);
+            ceiling.body.setImmovable(true);
+            ceiling.body.setVelocityX(- this.gameOptions.platformStartSpeed);
+            ceiling.setDepth(2);
+            this.ceilingGroup.add(ceiling);
+        }
+
         // this.nextPlatformDistance = Phaser.Math.Between(this.gameOptions.spawnRange[0], this.gameOptions.spawnRange[1]);
  
 
@@ -171,20 +221,22 @@ class runnerGame extends Phaser.Scene{
         if(this.addedGround > 1){
             if(Phaser.Math.Between(1, 100) <= this.gameOptions.firePercent){
                 if(this.firePool.getLength()){
-                    // debugger
-                    let fire = this.firePool.getFirst()
-                    fire.x = this.gameOptions.gameDisplayWidth
-                    fire.y = this.game.config.height - 200
-                    fire.alpha = 1
-                    fire.active = true
-                    fire.visible = true
-                    this.firePool.remove(fire)
-                    console.log(this.firePool)
-                    console.log(fire)
-                    console.log("from pool")
+                    let num = Phaser.Math.Between(1, 4)
+                    if (num > this.firePool.getLength()) {
+                        num = this.firePool.getLength()
+                    }
+                    for (let i = 0; i < num; i++) {
+                        let fire = this.firePool.getFirst()
+                        fire.x = this.gameOptions.gameDisplayWidth
+                        fire.y = this.game.config.height - 200 - (i * 40)
+                        fire.alpha = 1
+                        fire.active = true
+                        fire.visible = true
+                        this.firePool.remove(fire)
+                    }
                 }
                 else{
-                    let num = Phaser.Math.Between(1, 3)
+                    let num = Phaser.Math.Between(3, 4)
                     for (let i = 0; i < num; i++) {
                         let fire = this.physics.add.sprite(this.gameOptions.gameDisplayWidth, this.game.config.height - 200 - (i * 40), "fire")
                         fire.setImmovable(true)

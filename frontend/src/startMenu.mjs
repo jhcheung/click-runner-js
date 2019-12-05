@@ -1,4 +1,5 @@
 import {gameStart} from './main.mjs'
+import leaderboard from './leaderboard.mjs'
 
 class startMenu {
     constructor(userId) {
@@ -33,6 +34,7 @@ class startMenu {
             gameStart();
         } else if (e.target.id === "leaderboard") {
             //add leaderboard logic
+            leaderboard.prototype.fetchGames()
         }
         }
     }
