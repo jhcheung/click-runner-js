@@ -23,7 +23,7 @@ import clickGame from "./clickGame.mjs";
 import { startScreen, transitionScreen, endScreen } from "./gameScreens.mjs"
 
 
-export function gameStart(userId) {
+export function gameStart(userId, gameId) {
     let gameConfig = {
         type: Phaser.AUTO,
         width: gameOptions.gameDisplayWidth,
@@ -38,6 +38,7 @@ export function gameStart(userId) {
     game = new Phaser.Game(gameConfig)
     game.gameOptions = gameOptions
     game.userId = userId
+    game.gameId = gameId
     window.focus();
     // debugger;
     resize();

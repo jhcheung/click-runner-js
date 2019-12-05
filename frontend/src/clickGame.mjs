@@ -79,7 +79,7 @@ class clickGame extends Phaser.Scene{
                         break;
                 }
             });
-            debugger
+
             
                 this.scene.start("TransitionScreen",this.gemCounter);
             }

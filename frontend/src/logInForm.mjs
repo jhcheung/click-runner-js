@@ -37,6 +37,7 @@ class logInForm {
                     startMenu1.renderStartMenu()
                 }
              })
+            .catch(error => alert(error))
 
     }
 }

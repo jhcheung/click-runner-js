@@ -18,11 +18,11 @@ class Api::V1::GamesController < ApplicationController
     end
 
     def show
-        render json: Api::V1::UserSerializer.new(@game)
+        render json: Api::V1::GameSerializer.new(@game)
     end
 
     def update
-        @game = Game.assign_attributes(game_params)
+        @game.assign_attributes(game_params)
 
         if @game.save
             render json: Api::V1::GameSerializer.new(@game)
@@ -42,11 +42,11 @@ class Api::V1::GamesController < ApplicationController
     private
 
     def set_game
-        @game = game.find params[:id]
+        @game = Game.find params[:id]
     end
 
     def game_params
-        params.require(:game).permit(:user_id, :score, :lives_modifier, :score_modifier, :obstacle_modifier)
+        params.require(:game).permit(:user_id, :score, :lives_modifier, :score_modifier, :obstacle_modifier, :jump_num_modifier)
     end
 
 end

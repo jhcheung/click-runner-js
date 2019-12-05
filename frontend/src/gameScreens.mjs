@@ -54,6 +54,7 @@ export class startScreen extends Phaser.Scene{
             frameRate: 1,
             repeat: -1
         });
+
         // const resetButton = this.add.text(this.game.config.width/2, this.game.config.height/1.2, 'Click When Ready', { fontSize: "20px", fontFamily: 'Comic Sans MS', fill: '#0f0' });
 
         clickPlay.anims.play('plund');
@@ -63,12 +64,6 @@ export class startScreen extends Phaser.Scene{
     
     }
 
-    createGame() {
-        let createGameObj = {
-            method: "Post"
-        }
-        fetch('http://localhost:3000/api/v1/games')
-    }
 }
 
 export class transitionScreen extends Phaser.Scene{
@@ -124,6 +119,7 @@ export class transitionScreen extends Phaser.Scene{
             scoreheightOffset += 25;
             x+=1;
         });
+        
         //const score1 = this.add.text(this.game.config.width/2.2, this.game.config.height/3.2, clickScore.gem1, {fill: '#0f0'});
         //const resetButton = this.add.text(this.game.config.width/2.2, this.game.config.height/1.2, 'Start running!', { fill: '#0f0' });
         const clickPlay = this.add.sprite(this.game.config.width/2, this.game.config.height/1.2, 'run');
