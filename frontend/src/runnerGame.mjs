@@ -91,6 +91,14 @@ class runnerGame extends Phaser.Scene{
         this.livesText = this.add.text(this.gameOptions.gameDisplayWidth - 170, 30, `Lives: ${this.lives}`, { fontSize: '32px', fill: '#000' });
 
 
+        this.ceilingCollider = this.physics.add.collider(this.player, this.ceilingGroup)
+        
+        this.groundCollider = this.physics.add.collider(this.player, this.groundGroup, function() {
+            if(!this.player.anims.isPlaying){
+                this.player.anims.play("run");
+            }
+        }, null, this)
+        
         //set up animation
         this.anims.create({
             key: "run",
@@ -101,13 +109,6 @@ class runnerGame extends Phaser.Scene{
             frameRate: 8,
             repeat: -1
         });
-        this.ceilingCollider = this.physics.add.collider(this.player, this.ceilingGroup)
-        
-        this.groundCollider = this.physics.add.collider(this.player, this.groundGroup, function() {
-            if(!this.player.anims.isPlaying){
-                this.player.anims.play("run");
-            }
-        }, null, this)
 
         this.anims.create({
             key: "burn",
@@ -161,6 +162,7 @@ class runnerGame extends Phaser.Scene{
     }
 
     addGround(){
+        debugger
         this.addedGround ++;
 
         let ground;
@@ -292,7 +294,7 @@ class runnerGame extends Phaser.Scene{
     update() {
         //extend ground with every update
         if(this.player.y > this.game.config.height){
-            this.scene.start("RunnerGame","");
+            this.scene.restart;
         }
 
         if (this.lives <= 0) {
