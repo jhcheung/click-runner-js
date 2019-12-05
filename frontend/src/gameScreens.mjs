@@ -1,3 +1,12 @@
+
+let gemObj = {
+    1: "rubies",
+    2: "sapphires",
+    3: "emeralds",
+    4: "diamonds",
+    5: "amethysts"
+}
+
 export class startScreen extends Phaser.Scene{
     constructor(){
         super("StartScreen");
@@ -43,7 +52,7 @@ export class transitionScreen extends Phaser.Scene{
         let scoreheightOffset = scoreheight/3.2;
         let game = this;
         Object.values(clickScore).forEach((value)=>{
-            game.add.text(game.game.config.width/2.2, scoreheightOffset, `Total Gem${x}: ${value}`, {fill: '#0f0'});
+            game.add.text(game.game.config.width/2.2, scoreheightOffset, `Total ${gemObj[x]}: ${value}`, {fill: '#0f0'});
             scoreheightOffset += 25;
             x+=1;
         });

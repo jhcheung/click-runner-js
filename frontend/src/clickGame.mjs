@@ -1,13 +1,15 @@
 
 let gemObj = {
     1: "ruby",
-    2: "diamond",
-    3: "sapphire",
-    4: "emerald",
+    2: "sapphire",
+    3: "emerald",
+    4: "diamond",
     5: "amethyst"
 }
 
 class clickGame extends Phaser.Scene{
+
+
     constructor(){
         super("ClickGame");
         this.text;
@@ -20,8 +22,8 @@ class clickGame extends Phaser.Scene{
             gem4: 0,
             gem5: 0
         }
-
     }
+    
     preload() {
         this.gameOptions = this.game.gameOptions
        
@@ -58,24 +60,24 @@ class clickGame extends Phaser.Scene{
                 
             this.gemGroup.getChildren().forEach((gem)=>{
                 switch(gem.name){
-                    case "gem1":
+                    case "ruby":
                         gemCounter.gem1 += gem.clickCount;
                         break;
-                    case "gem2":
+                    case "emerald":
                         gemCounter.gem2 += gem.clickCount;
                         break;
-                    case "gem3":
+                    case "sapphire":
                         gemCounter.gem3 += gem.clickCount;
                         break;
-                    case "gem4":
+                    case "diamond":
                         gemCounter.gem4 += gem.clickCount;
                         break;
-                    case "gem5":
+                    case "amethyst":
                         gemCounter.gem5 += gem.clickCount;
                         break;
                 }
             });
-            // debugger
+            debugger
             
                 this.scene.start("TransitionScreen",this.gemCounter);
             }
@@ -123,19 +125,19 @@ class clickGame extends Phaser.Scene{
             let gem = gemGrouping.getFirstAlive()
             // debugger
             switch(gem.name){
-                case "gem1":
+                case "ruby":
                     gemCounter.gem1 += gem.clickCount;
                     break;
-                case "gem2":
+                case "sapphire":
                     gemCounter.gem2 += gem.clickCount;
                     break;
-                case "gem3":
+                case "emerald":
                     gemCounter.gem3 += gem.clickCount;
                     break;
-                case "gem4":
+                case "diamond":
                     gemCounter.gem4 += gem.clickCount;
                     break;
-                case "gem5":
+                case "amethyst":
                     gemCounter.gem5 += gem.clickCount;
                     break;
             }
@@ -164,10 +166,13 @@ class clickGame extends Phaser.Scene{
         //     this.gem5.destroy();
         // }
         for (let i = 1; i <= 5; i++){
-            let gem = this.add.sprite(this.randWidth(), this.randHeight(), "ruby");
-            gem.name = `gem${i}`;
-            gem.anims.play("gem");
+
+            let gemInd = this.getRandomGemIndex();
+            let gem = this.add.sprite(this.randWidth(), this.randHeight(), `${gemObj[gemInd]}`);
+            gem.name = `${gemObj[gemInd]}`;
+            gem.anims.play(gemObj[gemInd]);
             gem.clickCount = 0;
+            gem.ind = gemInd;
             gem.setInteractive();
             gem.on('pointerdown', this.incGem);
             gem.on('pointerup', this.startAnim);
@@ -216,7 +221,7 @@ class clickGame extends Phaser.Scene{
 
     }
     startAnim(){
-        this.anims.play("gem");
+        this.anims.play(gemObj[this.ind]);
     }
     incGem(){
         console.log(this.clickCount++);
@@ -231,7 +236,10 @@ class clickGame extends Phaser.Scene{
         return Math.round(Math.random() * this.game.config.height);
     }
     getRandomGemIndex(){
-       let rand = Math.ceil(Math.random() * Object.values(gemObj).length)
+       let rand = Math.ceil(Math.random() * 100);
+       if (rand < 70) { return Math.ceil(Math.random() * 3); }
+       else if(rand < 90) { return 4; }
+       else { return 5; } 
     }
 }
 
