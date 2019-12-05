@@ -5,6 +5,8 @@ let gameOptions = {
     platformStartSpeed: 400,
     gameDisplayWidth: 1337,
     playerGravity: 1000,
+    cave1Speed: 40,
+    cave2Speed: 90,
     jumpForce: 500,
     playerStartPosition: 200,
     playerStartLives: 2,

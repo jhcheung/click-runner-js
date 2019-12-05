@@ -26,6 +26,8 @@ class clickGame extends Phaser.Scene{
     
     preload() {
         this.gameOptions = this.game.gameOptions
+
+        this.load.image('coins', 'public/coinbackgrounds.png');
        
         this.load.spritesheet("ruby", "public/ruby-sheet.png", {
             frameWidth: 64,
@@ -108,6 +110,13 @@ class clickGame extends Phaser.Scene{
         //     frameRate: 15,
         //     repeat: -1
         // });
+        let image = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'coins')
+        let scaleX = this.cameras.main.width / image.width
+        let scaleY = this.cameras.main.height / image.height
+        let scale = Math.min(scaleX, scaleY)
+        // debugger;
+        image.setScale(scale).setScrollFactor(0)
+        //this.add.image(0,0, 'coins');
         this.gemGroup = this.add.group();
         this.renderGems(this.gemGroup, this.gemCounter);
         this.text = this.add.text(32, 32);
@@ -230,10 +239,16 @@ class clickGame extends Phaser.Scene{
         // console.log('clicked');
     }
     randWidth(){
-        return Math.round(Math.random() * this.game.config.width);
+        let retVal =  Math.round(Math.random() * this.game.config.width);
+        if (retVal < 100) { retVal = 100; }
+        else if  (retVal > this.game.config.width-100 ) { retVal = this.game.config.width-100; }
+        return retVal;
     }
     randHeight(){
-        return Math.round(Math.random() * this.game.config.height);
+        let retVal = Math.round(Math.random() * this.game.config.height);
+        if (retVal < 60) { retVal = 60; }
+        else if  (retVal > this.game.config.height-60 ) { retVal = this.game.config.height-60; }
+        return retVal;
     }
     getRandomGemIndex(){
        let rand = Math.ceil(Math.random() * 100);
