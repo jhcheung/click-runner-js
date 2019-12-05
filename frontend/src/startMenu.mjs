@@ -18,11 +18,10 @@ class startMenu {
                 <br>
         `
         this.bodyBox.innerHTML = startMenuHTML
-
-        this.bodyBox.addEventListener('click', this.checkOptions)
+        this.bodyBox.addEventListener('click', (e) => this.checkOptions(e))
     }
 
-    checkOptions(e) {
+    checkOptions(e, userId) {
         let ex = document.querySelector('canvas');
         if (!ex)
         { 
@@ -31,7 +30,7 @@ class startMenu {
             location.reload()
         } else if (e.target.id === "start_game") {
             // e.target.remove();
-            gameStart();
+            gameStart(this.userId);
         } else if (e.target.id === "leaderboard") {
             //add leaderboard logic
             leaderboard.prototype.fetchGames()
