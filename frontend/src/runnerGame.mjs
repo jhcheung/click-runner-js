@@ -122,7 +122,7 @@ class runnerGame extends Phaser.Scene{
                 this.player.anims.play("run");
             }
         }, null, this)
-        debugger;
+        // debugger;
         if (!this.anims.anims.entries.burn){
 
         this.anims.create({
@@ -178,7 +178,7 @@ class runnerGame extends Phaser.Scene{
     }
 
     addGround(){
-        debugger
+        // debugger
         this.addedGround ++;
 
         let ground;
