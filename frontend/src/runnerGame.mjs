@@ -4,6 +4,7 @@ class runnerGame extends Phaser.Scene{
         this.score = 0
         this.addedGround = 0
         this.clickScore
+
     }
 
     preload() {
@@ -22,17 +23,37 @@ class runnerGame extends Phaser.Scene{
             frameWidth: 40,
             frameHeight: 70
         });
+        this.load.image("cavefore", "public/caveback.png");
+        this.load.image("cavemid", "public/caveback2.png");
+        this.load.image("caveback", "public/caveback3.png");
+        
  
     }
 
     create(clickScore) {
         this.clickScore = clickScore
         let [scoreMulti, jumpHeightMod, jumpStrengthMod, livesMod, obsMod] = Object.values(clickScore);
+
+        this.caveBackgroundStatic = this.add.tileSprite(this.game.config.width/2, this.game.config.height/2, 1500, 800, 'caveback');
+        this.caveBackground = this.add.tileSprite(this.game.config.width/2, 0, 1500, 1600, 'cavemid');
+        this.caveForeground = this.add.tileSprite(this.game.config.width/2, 0, 1500, 1600, 'cavefore');
+        this.caveForeground.setScale(2.4);
+        this.caveBackground.setScale(2.4);
         //debugger;
         // if (data==="dead") {
         //     this.score = 0;
         //     this.lives = this.gameOptions.playerStartLives;
         // }
+        // let cave = this.add.sprite(this.cameras.main.width / 2, this.cameras.main.height / 2, 'caveback')
+        // let scaleX = this.cameras.main.width / cave.width
+        // let scaleY = this.cameras.main.height / cave.height
+        // let scale = Math.max(scaleX, scaleY)
+        // cave.setScale(scale);
+        // debugger;
+        // cave.anims.play();
+        // group with all active cave foregrounds.
+       
+
         //make group for floor sprites
         this.dying = false
         this.groundGroup = this.add.group({
@@ -170,6 +191,7 @@ class runnerGame extends Phaser.Scene{
         this.input.keyboard.on('keydown_W', this.gameOver, this);
 
     }
+   
 
     addGround(){
         this.addedGround ++;
@@ -216,14 +238,7 @@ class runnerGame extends Phaser.Scene{
             this.ceilingGroup.add(ceiling);
         }
 
-        // this.nextPlatformDistance = Phaser.Math.Between(this.gameOptions.spawnRange[0], this.gameOptions.spawnRange[1]);
- 
 
-        // let groundPlatform = this.physics.add.sprite(this.game.config.width * 1.5, this.game.config.height * 0.8, "platform");
-        // groundPlatform.setImmovable(true);
-        // groundPlatform.setVelocityX(this.gameOptions.platformStartSpeed * -1);
-        // groundPlatform.displayWidth = this.gameOptions.gameDisplayWidth;
-        // this.groundGroup.add(groundPlatform)
 
 
         if(this.addedGround > 1){
@@ -338,15 +353,15 @@ class runnerGame extends Phaser.Scene{
         if (this.minDistance > 0) {
             this.addGround()
         }
-
-        
+        this.caveForeground.tilePositionX += 1
+        this.caveBackground.tilePositionX += 0.3
         
 
         //have player stay in one position
         this.player.x = this.gameOptions.playerStartPosition
 
         //recycle old platforms
-        this.removeOldPlatforms()
+        this.removeOldPlatforms();
 
         this.fireGroup.getChildren().forEach(function(fire){
             if(fire.x < - fire.displayWidth / 2){
