@@ -15,7 +15,7 @@ class clickGame extends Phaser.Scene{
         this.text;
         this.timeEvent;
         this.gemGroup;
-        this.gemCounter= {
+        this.gemCounter = {
             gem1: 0,
             gem2: 0,
             gem3: 0,
