@@ -81,13 +81,6 @@ export class transitionScreen extends Phaser.Scene{
             frameHeight: 200
         });
     }
-    loadNewSpriteAndGame(){
-        // debugger
-        this.anims.stop();
-        this.anims.play('pressRun');
-        // debugger;
-        this.scene.scene.start('RunnerGame',this.clickScore);
-    }
     create(clickScore){
         console.log(clickScore);
         this.clickScore = clickScore;
@@ -127,6 +120,15 @@ export class transitionScreen extends Phaser.Scene{
         clickPlay.setInteractive();
         clickPlay.on('pointerdown', this.loadNewSpriteAndGame);
     }
+
+    loadNewSpriteAndGame(){
+        // debugger
+        this.anims.stop();
+        this.anims.play('pressRun');
+        debugger
+        this.scene.scene.start('RunnerGame',this.scene.clickScore);
+    }
+
 }
 
 export class endScreen extends Phaser.Scene{
@@ -136,11 +138,11 @@ export class endScreen extends Phaser.Scene{
     create(data){
         console.log(data);
         console.log("here");
-        this.add.text(this.game.config.width/2.5, this.game.config.height/2.2, 'Game Over', { fontSize: "64px", fontFamily: '"Roboto Condensed"' });
-        this.add.text(this.game.config.width/2.3, this.game.config.height/1.8, `Your Score : ${data}`, { fontSize: "32px", fontFamily: '"Roboto Condensed"' });
+        this.add.text(this.game.config.width/2.5, this.game.config.height/2.2, 'Game Over', { fontSize: "64px", fontFamily: 'Comic Sans MS' });
+        this.add.text(this.game.config.width/2.3, this.game.config.height/1.8, `Your Score : ${data}`, { fontSize: "32px", fontFamily: 'Comic Sans MS' });
         
-        const helloButton = this.add.text(this.game.config.width/2.2, this.game.config.height/1.5, 'Hello Phaser!', { fill: '#0f0' });
-        const resetButton = this.add.text(this.game.config.width/2.2, this.game.config.height/1.2, 'Restart!', { fill: '#0f0' });
+        const helloButton = this.add.text(this.game.config.width/2.2, this.game.config.height/1.5, 'Hello Phaser!', { fontFamily: 'Comic Sans MS', fill: '#0f0' });
+        const resetButton = this.add.text(this.game.config.width/2.2, this.game.config.height/1.2, 'Restart!', { fontFamily: 'Comic Sans MS', fill: '#0f0' });
         resetButton.setInteractive();
         resetButton.on('pointerdown', ()=>{
             this.sys.game.destroy(true);

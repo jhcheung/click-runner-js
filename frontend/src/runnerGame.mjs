@@ -32,6 +32,7 @@ class runnerGame extends Phaser.Scene{
 
     create(clickScore) {
         this.clickScore = clickScore
+        debugger
         let [scoreMulti, jumpHeightMod, jumpStrengthMod, livesMod, obsMod] = Object.values(clickScore);
 
         this.caveBackgroundStatic = this.add.tileSprite(this.game.config.width/2, this.game.config.height/2, 1500, 800, 'caveback');
@@ -113,8 +114,8 @@ class runnerGame extends Phaser.Scene{
         this.player.setGravityY(this.gameOptions.playerGravity);
         
         // set up score
-        this.scoreText = this.add.text(16, 30, `Score: ${this.score}`, { fontSize: '32px', fill: '#000' });
-        this.livesText = this.add.text(this.gameOptions.gameDisplayWidth - 170, 30, `Lives: ${this.lives}`, { fontSize: '32px', fill: '#000' });
+        this.scoreText = this.add.text(16, 30, `Score: ${this.score}`, { fontFamily: 'Comic Sans MS', fontSize: '32px', fill: '#fff' });
+        this.livesText = this.add.text(this.gameOptions.gameDisplayWidth - 170, 30, `Lives: ${this.lives}`, { fontFamily: 'Comic Sans MS', fontSize: '32px', fill: '#fff' });
 
         
         //set up animation
