@@ -133,41 +133,106 @@ export class endScreen extends Phaser.Scene{
     constructor(){
         super("EndScreen");
     }
+    preload(){
+        // this.load.spritesheet('again', 'public/pagain.png', {
+        //     frameWidth: 300,
+        //     frameHeight: 200
+        // });
+        // this.load.spritesheet('againPress', 'public/pagainpress.png', {
+        //     frameWidth: 300,
+        //     frameHeight: 200
+        // });
+        this.load.spritesheet('quit', 'public/quit.png', {
+            frameWidth: 300,
+            frameHeight: 200
+        });
+        this.load.spritesheet('quitPress', 'public/quitpress.png', {
+            frameWidth: 300,
+            frameHeight: 200
+        });
+    }
+    // loadNewSpriteAndGame(){
+    //     this.anims.stop();
+    //     this.anims.play('playPress');
+    //     // debugger;
+    //     this.scene.scene.start('StartScreen');
+    // }
+    destroyG(){
+        this.anims.stop();
+        this.anims.play('quitPress');
+        debugger
+        document.querySelector('canvas').remove();
+        
+    }
     create(data){
         console.log(data);
         console.log("here");
         this.add.text(this.game.config.width/2.5, this.game.config.height/2.2, 'Game Over', { fontSize: "64px", fontFamily: '"Roboto Condensed"' });
         this.add.text(this.game.config.width/2.3, this.game.config.height/1.8, `Your Score : ${data}`, { fontSize: "32px", fontFamily: '"Roboto Condensed"' });
         
-        const helloButton = this.add.text(this.game.config.width/2.2, this.game.config.height/1.5, 'Hello Phaser!', { fill: '#0f0' });
-        const resetButton = this.add.text(this.game.config.width/2.2, this.game.config.height/1.2, 'Restart!', { fill: '#0f0' });
-        resetButton.setInteractive();
-        resetButton.on('pointerdown', ()=>{
-            this.sys.game.destroy(true);
-            document.querySelector('canvas').remove();
-            //passing in a string value to denote reset score
-            //Probably not necessary when game is fully implemented
-            // this.scene.start('RunnerGame',"dead")
-            // let b = document.createElement('button');
-            // b.innerText = "Start Game";
-            // b.id = "start";
-            // document.body.appendChild(b);
-            //flag= false;
+        // const clickPlay = this.add.sprite(this.game.config.width/2, this.game.config.height/1.5, 'again');
+        // this.anims.create({
+        //     key: 'play',
+        //     frames: this.anims.generateFrameNumbers('again', {
+        //         start: 0,
+        //         end: 0
+        //     }),
+        //     frameRate: 1,
+        //     repeat: -1
+        // });
+        // this.anims.create({
+        //     key: 'playPress',
+        //     frames: this.anims.generateFrameNumbers('againPress', {
+        //         start: 0,
+        //         end: 0
+        //     }),
+        //     frameRate: 1,
+        //     repeat: -1
+        // });
 
-            // document.addEventListener('click',(e)=>{
-            //     if (e.target.id === "start")
-            //     {
-            //         b.remove();
-            //         gameStart();
-            //     }
-            // });
+        // const resetButton = this.add.text(this.game.config.width/2, this.game.config.height/1.2, 'Click When Ready', { fontSize: "20px", fontFamily: 'Comic Sans MS', fill: '#0f0' });
+
+        // clickPlay.anims.play('play');
+        // clickPlay.setInteractive();
+        // clickPlay.on('pointerdown', this.loadNewSpriteAndGame);
+
+        const clickQuit = this.add.sprite(this.game.config.width/2, this.game.config.height/1.2, 'quit');
+        this.anims.create({
+            key: 'quit',
+            frames: this.anims.generateFrameNumbers('quit', {
+                start: 0,
+                end: 0
+            }),
+            frameRate: 1,
+            repeat: -1
         });
-        helloButton.setInteractive();
-        helloButton.on('pointerdown', ()=>{
-            //temporary
-            document.querySelector('canvas').remove();
-        })
-        // debugger
+        this.anims.create({
+            key: 'quitPress',
+            frames: this.anims.generateFrameNumbers('quitPress', {
+                start: 0,
+                end: 0
+            }),
+            frameRate: 1,
+            repeat: -1
+        });
+
+        // const resetButton = this.add.text(this.game.config.width/2, this.game.config.height/1.2, 'Click When Ready', { fontSize: "20px", fontFamily: 'Comic Sans MS', fill: '#0f0' });
+
+        clickQuit.anims.play('quit');
+        clickQuit.setInteractive();
+        clickQuit.on('pointerdown', this.destroyG);
+
+
+        // //const helloButton = this.add.text(this.game.config.width/2.2, this.game.config.height/1.5, 'Hello Phaser!', { fill: '#0f0' });
+        // //const resetButton = this.add.text(this.game.config.width/2.2, this.game.config.height/1.2, 'Restart!', { fill: '#0f0' });
+        // resetButton.setInteractive();
+        // resetButton.on('pointerdown', ()
+        // helloButton.setInteractive();
+        // helloButton.on('pointerdown', ()=>{
+        //     //temporary
+        //     document.querySelector('canvas').remove();
+        // })
+        // // debugger
     }
 
 }
