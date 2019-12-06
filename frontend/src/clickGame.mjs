@@ -134,8 +134,12 @@ class clickGame extends Phaser.Scene{
         this.music.setLoop(true);
         this.music.play();
 
-        //this.input.keyboard.on('keydown_W', this.gameOver, this);
-    } 
+        this.input.keyboard.on('keydown_W', this.gameOver, this);
+    }
+    gameOver(){
+        this.music.stop();
+        this.scene.start("TransitionScreen",this.gemCounter);
+    }
     update()
     {
         // let time = this.timeEvent.getProgress().toString().substr(0, 4);
