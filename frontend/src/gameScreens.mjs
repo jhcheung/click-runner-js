@@ -1,8 +1,8 @@
 
 let gemObj = {
     1: "rubies",
-    2: "sapphires",
     3: "emeralds",
+    2: "sapphires",
     4: "diamonds",
     5: "amethysts"
 }
@@ -39,7 +39,7 @@ export class startScreen extends Phaser.Scene{
         this.scene.scene.start('ClickGame');
     }
     create(){
-        const instructions = `You are an explorer seeking valuable treasures in an unnamed dungeon. In the first part of the game, put your plunde— mining skills to the test! \nClick the gems as they appear on the screen to mine them. \nOh no! After 20 seconds of mining, it seems that the dungeon has noticed you. It’s time to escape! \nUse the space bar in order to jump over obstacles as they appear on the screen. Luckily, you have the gems you gathered to help, as they will grant you magic powers! \n * Rubys - Rubies will ward off obstacles, lowering the encounter rate. \n * Emeralds - Emeralds will grant you additional lives. Wow! \n * Sapphires - Sapphires will improve your jumping ability, giving you more mid-air jumps. \n * Diamonds will improve your jumping ability, giving you more jumping force. \n * Amethysts will increase your score multiplier. \n\nGood luck!`
+        const instructions = `You are an explorer seeking valuable treasures in an unnamed dungeon. In the first part of the game, put your plunde— mining skills to the test! \nClick the gems as they appear on the screen to mine them. \nOh no! After 20 seconds of mining, it seems that the dungeon has noticed you. It’s time to escape! \nUse the space bar in order to jump over obstacles as they appear on the screen. Luckily, you have the gems you gathered to help, as they will grant you magic powers! \n * Rubys - Rubies will ward off obstacles, lowering the encounter rate. \n * Emeralds - Emeralds  will improve your jumping ability, giving you more mid-air jumps. \n * Sapphires - Sapphires will grant you additional lives. \n * Diamonds will improve your jumping ability, giving you more jumping force. \n * Amethysts will increase your score multiplier. \n\nGood luck!`
         let title = this.add.image(this.cameras.main.width / 2, 150, 'title')
         title.setScale(2);
         this.add.text(0, 0, instructions, { fontSize: "15px", fontFamily: 'Comic Sans MS', fill: 'whitesmoke', wordWrap: { width: 1300 },     padding: {
