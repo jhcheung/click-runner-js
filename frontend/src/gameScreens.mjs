@@ -23,10 +23,13 @@ export class startScreen extends Phaser.Scene{
         });
         this.load.audio('titleMusic', 'public/startScreenSciFi.mp3');
         this.load.image("title", "public/clickTitle.png");
+
         this.load.audio('clickMusic', 'public/clickGameSummer.mp3');
         this.load.audio('clicked', 'public/click.mp3');
         this.load.audio('death', 'public/death.wav');
         this.load.audio('jump','public/jump.wav');
+        this.load.audio("runBGM", "public/runnerGameExtreme.mp3")
+
     }
     loadNewSpriteAndGame(){
         this.scene.music.stop();
