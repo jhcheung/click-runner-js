@@ -203,7 +203,7 @@ class runnerGame extends Phaser.Scene{
                 this.physics.world.removeCollider(this.groundCollider);
                 this.lives = this.lives - 1
                 this.livesText.setText(`Lives: ${this.lives}`)
-                this.runBGM.stop()
+                this.runBGM.stop();
             }
             // this.game.time.events.add(Phaser.Timer.SECOND * 4, this.scene.restart(), this)
         }, null, this);
