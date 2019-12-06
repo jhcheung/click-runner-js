@@ -10,6 +10,7 @@ let gemObj = {
 export class startScreen extends Phaser.Scene{
     constructor(){
         super("StartScreen");
+        this.music;
     }
     preload(){
         this.load.spritesheet('plunder', 'public/plunder.png', {
@@ -20,10 +21,15 @@ export class startScreen extends Phaser.Scene{
             frameWidth: 300,
             frameHeight: 200
         });
-
+        this.load.audio('titleMusic', 'public/startScreenSciFi.mp3');
         this.load.image("title", "public/clickTitle.png");
+        this.load.audio('clickMusic', 'public/clickGameSummer.mp3');
+        this.load.audio('clicked', 'public/click.mp3');
+        this.load.audio('death', 'public/death.wav');
+        this.load.audio('jump','public/jump.wav');
     }
     loadNewSpriteAndGame(){
+        this.scene.music.stop();
         this.anims.stop();
         this.anims.play('press');
         ;
@@ -60,6 +66,9 @@ export class startScreen extends Phaser.Scene{
         });
 
         // const resetButton = this.add.text(this.game.config.width/2, this.game.config.height/1.2, 'Click When Ready', { fontSize: "20px", fontFamily: 'Comic Sans MS', fill: '#0f0' });
+        this.music = this.sound.add('titleMusic');
+        this.music.setLoop(true);
+        this.music.play();
 
         clickPlay.anims.play('plund');
         clickPlay.setInteractive();

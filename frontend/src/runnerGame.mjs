@@ -5,6 +5,8 @@ class runnerGame extends Phaser.Scene{
         this.addedGround = 0
         this.clickScore
         this.createFlag = true;
+        this.jumpSound;
+        this.deathSound;
 
     }
 
@@ -48,7 +50,8 @@ class runnerGame extends Phaser.Scene{
             this.createFlag = false;
         }
      
-
+        this.jumpSound = this.sound.add('jump');
+        this.deathSound = this.sound.add('death');
         this.caveBackgroundStatic = this.add.tileSprite(this.game.config.width/2, this.game.config.height/2, 1500, 800, 'caveback');
         this.caveBackground = this.add.tileSprite(this.game.config.width/2, 0, 1500, 1600, 'cavemid');
         this.caveForeground = this.add.tileSprite(this.game.config.width/2, 0, 1500, 1600, 'cavefore');
@@ -187,6 +190,7 @@ class runnerGame extends Phaser.Scene{
 
         // death by collision
         this.physics.add.overlap(this.player, this.fireGroup, function(player, fire){
+            this.deathSound.play();
             if (this.dying === false) {
                 this.dying = true;
                 this.player.anims.stop();
@@ -203,7 +207,7 @@ class runnerGame extends Phaser.Scene{
         this.input.keyboard.on('keydown_SPACE', this.jump, this)
         
         //early game over keypress for testing
-        this.input.keyboard.on('keydown_W', this.gameOver, this);
+        //this.input.keyboard.on('keydown_W', this.gameOver, this);
 
     }
    
@@ -308,6 +312,7 @@ class runnerGame extends Phaser.Scene{
     }
 
     jump(){
+        this.jumpSound.play();
         if (!this.dying) {
             if(this.player.body.touching.down || (this.playerJumps > 0 && this.playerJumps < this.gameOptions.jumps)){
                 if(this.player.body.touching.down){

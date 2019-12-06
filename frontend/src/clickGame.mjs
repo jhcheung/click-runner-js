@@ -24,6 +24,8 @@ class clickGame extends Phaser.Scene{
             amethyst: 0
         }
         this.timeCounter = 0;
+        this.music;
+        this.clickSound;
     }
     
     preload() {
@@ -51,7 +53,7 @@ class clickGame extends Phaser.Scene{
             frameWidth: 64,
             frameHeight: 64
         });
- 
+        
     }
     create(){
         let counter = 0;
@@ -85,7 +87,7 @@ class clickGame extends Phaser.Scene{
                 }
             });
 
-            
+                this.music.stop();
                 this.scene.start("TransitionScreen",this.gemCounter);
             }
             else {
@@ -127,6 +129,12 @@ class clickGame extends Phaser.Scene{
         this.timeEvent = this.time.addEvent({delay: 5000, callback: func, callbackScope: this, repeat: this.game.gameOptions.clickGameLength - 1});
         this.secondEvent = this.time.addEvent({delay:1000, callback: incTime, callbackScope: this, repeat:19})
        
+        this.music = this.sound.add('clickMusic');
+        this.clickSound = this.sound.add('clicked',{volume: 2.5});
+        this.music.setLoop(true);
+        this.music.play();
+
+        //this.input.keyboard.on('keydown_W', this.gameOver, this);
     } 
     update()
     {
@@ -242,6 +250,7 @@ class clickGame extends Phaser.Scene{
         this.anims.play(gemObj[this.ind]);
     }
     incGem(){
+        this.scene.clickSound.play();
         console.log(this.clickCount++);
         this.anims.stop();
         this.setFrame(9);
