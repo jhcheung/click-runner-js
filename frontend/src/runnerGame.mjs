@@ -32,7 +32,6 @@ class runnerGame extends Phaser.Scene{
 
     create(clickScore) {
         this.clickScore = clickScore
-        debugger
         let [scoreMulti, jumpHeightMod, jumpStrengthMod, livesMod, obsMod] = Object.values(clickScore);
 
         this.caveBackgroundStatic = this.add.tileSprite(this.game.config.width/2, this.game.config.height/2, 1500, 800, 'caveback');
