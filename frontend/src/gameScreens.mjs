@@ -1,3 +1,4 @@
+import {gameStart, resize} from './main.mjs'
 
 let gemObj = {
     1: "rubies",
@@ -35,11 +36,12 @@ export class startScreen extends Phaser.Scene{
         this.scene.music.stop();
         this.anims.stop();
         this.anims.play('press');
-        ;
         this.scene.scene.start('ClickGame');
     }
     create(){
         const instructions = `You are an explorer seeking valuable treasures in an unnamed dungeon. In the first part of the game, put your plunde— mining skills to the test! \nClick the gems as they appear on the screen to mine them. \nOh no! After 20 seconds of mining, it seems that the dungeon has noticed you. It’s time to escape! \nUse the space bar in order to jump over obstacles as they appear on the screen. Luckily, you have the gems you gathered to help, as they will grant you magic powers! \n * Rubys - Rubies will ward off obstacles, lowering the encounter rate. \n * Emeralds - Emeralds  will improve your jumping ability, giving you more mid-air jumps. \n * Sapphires - Sapphires will grant you additional lives. \n * Diamonds will improve your jumping ability, giving you more jumping force. \n * Amethysts will increase your score multiplier. \n\nGood luck!`
+        this.createGame()
+
         let title = this.add.image(this.cameras.main.width / 2, 150, 'title')
         title.setScale(2);
         this.add.text(0, 0, instructions, { fontSize: "15px", fontFamily: 'Comic Sans MS', fill: 'whitesmoke', wordWrap: { width: 1300 },     padding: {
@@ -79,6 +81,29 @@ export class startScreen extends Phaser.Scene{
 
     
     }
+
+    createGame () {
+        const createGameObj = {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json'
+            },
+            body: JSON.stringify({
+                user_id: this.game.userId
+            })
+    
+        }
+        fetch('http://localhost:3000/api/v1/games', createGameObj)
+            .then(resp => {
+                return resp.json()
+            })
+            .then(json => {
+                this.game.gameId = parseInt(json.data.id);
+            })
+    }
+
+
 
 }
 export class transitionScreen extends Phaser.Scene{
@@ -169,15 +194,15 @@ export class endScreen extends Phaser.Scene{
         });
     }
     destroyG(){
-        this.anims.stop();
-        this.anims.play('quitPress');
-        location.reload();
+        this.clickQuit.anims.stop();
+        this.clickQuit.anims.play('quitPress');
+        // location.reload();
+        document.querySelector('canvas').remove();
     }
     again(){
-        this.anims.stop();
-        this.anims.play('playPress');
-        // debugger
-        document.querySelector('canvas').remove();
+        this.clickAgain.anims.stop();
+        this.clickAgain.anims.play('playPress');
+        // document.querySelector('canvas').remove();
         
     }
     create(data){
@@ -213,8 +238,8 @@ export class endScreen extends Phaser.Scene{
         // clickPlay.setInteractive();
         // clickPlay.on('pointerdown', this.loadNewSpriteAndGame);
 
-        const clickQuit = this.add.sprite(this.game.config.width/2, this.game.config.height/1.4, 'again');
-        const clickLog = this.add.sprite(this.game.config.width/2, this.game.config.height/1.1, 'quit');
+        this.clickAgain = this.add.sprite(this.game.config.width/2, this.game.config.height/1.4, 'again');
+        this.clickQuit = this.add.sprite(this.game.config.width/2, this.game.config.height/1.1, 'quit');
         this.anims.create({
             key: 'quit',
             frames: this.anims.generateFrameNumbers('quit', {
@@ -237,12 +262,20 @@ export class endScreen extends Phaser.Scene{
 
         // const resetButton = this.add.text(this.game.config.width/2, this.game.config.height/1.2, 'Click When Ready', { fontSize: "20px", fontFamily: 'Comic Sans MS', fill: '#0f0' });
 
-        clickQuit.anims.play('play');
-        clickLog.anims.play('quit');
-        clickLog.setInteractive();
-        clickQuit.setInteractive();
-        clickQuit.on('pointerdown', this.again);
-        clickLog.on('pointerdown', this.destroyG);
+        this.clickAgain.anims.play('play');
+        this.clickQuit.anims.play('quit');
+        this.clickQuit.setInteractive();
+        this.clickAgain.setInteractive();
+        this.clickAgain.on('pointerdown', () => { 
+            this.again() 
+            // const userId = this.game.userId
+            debugger
+            this.scene.start('StartScreen')
+            // // document.querySelector('canvas').remove()
+            // gameStart(userId)
+            // resize()
+        });
+        this.clickQuit.on('pointerdown', () => { this.destroyG() } );
 
 
         // //const helloButton = this.add.text(this.game.config.width/2.2, this.game.config.height/1.5, 'Hello Phaser!', { fill: '#0f0' });

@@ -1,8 +1,8 @@
 class runnerGame extends Phaser.Scene{
     constructor() {
         super("RunnerGame")
-        this.score = 0
-        this.addedGround = 0
+        this.clickScore
+        this.addedGround
         this.clickScore
         this.createFlag = true;
         this.jumpSound;
@@ -33,6 +33,8 @@ class runnerGame extends Phaser.Scene{
 
     create(clickScore) {        
         if (this.createFlag){
+            this.score = 0
+            this.addedGround = 0
             this.clickScore = clickScore
             
             let [obsMod,livesMod, jumpNumMod, jumpStrengthMod, scoreMulti] = Object.values(clickScore);
@@ -333,15 +335,16 @@ class runnerGame extends Phaser.Scene{
     }
 
     gameOver () {
- 
         // shake the camera
+        this.createFlag = true
         this.cameras.main.shake(500);
-    //    
         // end screen
-        this.time.delayedCall(500, function() {
-          this.scene.start("EndScreen", this.score+"");
-        }, [], this);
+        this.runBGM.stop();
         this.updateGame()
+        this.time.delayedCall(500, function() {
+            this.deathSound.play();
+            this.scene.start("EndScreen", this.score+"");
+        }, [], this);
     }
     
     updateGame() {

@@ -16,14 +16,6 @@ class clickGame extends Phaser.Scene{
         this.timeEvent;
         this.secondEvent;
         this.gemGroup;
-        this.gemCounter = {
-            ruby: 0,
-            emerald: 0,
-            sapphire: 0,
-            diamond: 0,
-            amethyst: 0
-        }
-        this.timeCounter = 0;
         this.music;
         this.clickSound;
     }
@@ -56,6 +48,14 @@ class clickGame extends Phaser.Scene{
         
     }
     create(){
+        this.timeCounter = 0;
+        this.gemCounter = {
+            ruby: 0,
+            emerald: 0,
+            sapphire: 0,
+            diamond: 0,
+            amethyst: 0
+        }
         let counter = 0;
         let incTime = () => {
             this.timeCounter++;
@@ -138,6 +138,7 @@ class clickGame extends Phaser.Scene{
     }
     gameOver(){
         this.music.stop();
+        this.scene.stop()
         this.scene.start("TransitionScreen",this.gemCounter);
     }
     update()

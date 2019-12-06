@@ -4,27 +4,6 @@ import leaderboard from './leaderboard.mjs'
 class startMenu {
     constructor(userId) {
         this.userId = userId
-        this.createGame = function() {
-            const createGameObj = {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json'
-                },
-                body: JSON.stringify({
-                    user_id: this.userId
-                })
-        
-            }
-            fetch('http://localhost:3000/api/v1/games', createGameObj)
-                .then(resp => {
-                    return resp.json()
-                })
-                .then(json => {
-                    gameStart(this.userId, parseInt(json.data.id));
-                })
-        }
-    
     }
 
     renderStartMenu() {
@@ -56,7 +35,7 @@ class startMenu {
             location.reload()
         } else if (e.target.id === "start_game") {
             // e.target.remove();
-            this.createGame()
+            gameStart(this.userId)
         } else if (e.target.id === "leaderboard") {
             //add leaderboard logic
             leaderboard.prototype.fetchGames()
