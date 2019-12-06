@@ -22,6 +22,9 @@ export class startScreen extends Phaser.Scene{
         });
 
         this.load.image("title", "public/clickTitle.png");
+
+        this.load.audio("runBGM", "public/runnerGameExtreme.mp3")
+
     }
     loadNewSpriteAndGame(){
         this.anims.stop();

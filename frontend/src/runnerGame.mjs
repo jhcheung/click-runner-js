@@ -26,9 +26,7 @@ class runnerGame extends Phaser.Scene{
         });
         this.load.image("cavefore", "public/caveback.png");
         this.load.image("cavemid", "public/caveback2.png");
-        this.load.image("caveback", "public/caveback3.png");
-      
- 
+        this.load.image("caveback", "public/caveback3.png"); 
     }
 
     create(clickScore) {        
@@ -48,7 +46,9 @@ class runnerGame extends Phaser.Scene{
             this.createFlag = false;
         }
      
-
+        this.runBGM = this.sound.add('runBGM')
+        this.runBGM.play()
+        this.runBGM.setLoop(true)
         this.caveBackgroundStatic = this.add.tileSprite(this.game.config.width/2, this.game.config.height/2, 1500, 800, 'caveback');
         this.caveBackground = this.add.tileSprite(this.game.config.width/2, 0, 1500, 1600, 'cavemid');
         this.caveForeground = this.add.tileSprite(this.game.config.width/2, 0, 1500, 1600, 'cavefore');
@@ -195,6 +195,7 @@ class runnerGame extends Phaser.Scene{
                 this.physics.world.removeCollider(this.groundCollider);
                 this.lives = this.lives - 1
                 this.livesText.setText(`Lives: ${this.lives}`)
+                this.runBGM.stop()
             }
             // this.game.time.events.add(Phaser.Timer.SECOND * 4, this.scene.restart(), this)
         }, null, this);
