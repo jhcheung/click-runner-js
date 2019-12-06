@@ -4,6 +4,7 @@ class runnerGame extends Phaser.Scene{
         this.score = 0
         this.addedGround = 0
         this.clickScore
+        this.createFlag = true;
 
     }
 
@@ -26,20 +27,31 @@ class runnerGame extends Phaser.Scene{
         this.load.image("cavefore", "public/caveback.png");
         this.load.image("cavemid", "public/caveback2.png");
         this.load.image("caveback", "public/caveback3.png");
-        
+      
  
     }
 
-    create(clickScore) {
-        this.clickScore = clickScore
-        let [scoreMulti, jumpHeightMod, jumpStrengthMod, livesMod, obsMod] = Object.values(clickScore);
+    create(clickScore) {        
+        if (this.createFlag){
+            this.clickScore = clickScore
+            
+            let [obsMod,livesMod, jumpNumMod, jumpStrengthMod, scoreMulti] = Object.values(clickScore);
+            
+            this.gameOptions.firePercent -= Math.ceil(obsMod*0.3);
+            this.lives += Math.ceil(livesMod*0.1); //lives are preloaded
+            this.gameOptions.jumps += Math.ceil(jumpNumMod*0.2);
+            this.gameOptions.jumpForce += jumpStrengthMod*15;
+            this.gameOptions.scoreMulti += Math.ceil(scoreMulti*0.1);
+            this.createFlag = false;
+        }
+     
 
         this.caveBackgroundStatic = this.add.tileSprite(this.game.config.width/2, this.game.config.height/2, 1500, 800, 'caveback');
         this.caveBackground = this.add.tileSprite(this.game.config.width/2, 0, 1500, 1600, 'cavemid');
         this.caveForeground = this.add.tileSprite(this.game.config.width/2, 0, 1500, 1600, 'cavefore');
         this.caveForeground.setScale(2.4);
         this.caveBackground.setScale(2.4);
-        //debugger;
+        //
         // if (data==="dead") {
         //     this.score = 0;
         //     this.lives = this.gameOptions.playerStartLives;
@@ -49,7 +61,7 @@ class runnerGame extends Phaser.Scene{
         // let scaleY = this.cameras.main.height / cave.height
         // let scale = Math.max(scaleX, scaleY)
         // cave.setScale(scale);
-        // debugger;
+        
         // cave.anims.play();
         // group with all active cave foregrounds.
        
@@ -137,7 +149,7 @@ class runnerGame extends Phaser.Scene{
                 this.player.anims.play("run");
             }
         }, null, this)
-        // debugger;
+        
         if (!this.anims.anims.entries.burn){
 
             this.anims.create({
@@ -270,7 +282,7 @@ class runnerGame extends Phaser.Scene{
                         this.fireGroup.add(fire)    
                         console.log("new from group")
                     }
-                    // debugger
+                    
                 }
             }
         }
@@ -307,7 +319,7 @@ class runnerGame extends Phaser.Scene{
  
         // shake the camera
         this.cameras.main.shake(500);
-    //    debugger;
+    //    
         // end screen
         this.time.delayedCall(500, function() {
           this.scene.start("EndScreen", this.score+"");
@@ -317,7 +329,7 @@ class runnerGame extends Phaser.Scene{
     
     updateGame() {
         const gameUrl = `http://localhost:3000/api/v1/games/${this.game.gameId}`
-
+        
         let patchObj = {
             method: "PATCH",
             headers: {
@@ -326,11 +338,11 @@ class runnerGame extends Phaser.Scene{
             },
             body: JSON.stringify({
                 score: this.score,
-                lives_modifier: this.clickScore.gem1,
-                score_modifier: this.clickScore.gem2,
-                obstacle_modifier: this.clickScore.gem3,
-                jump_num_modifier: this.clickScore.gem4,
-                jump_heigh_modifier: this.clickScore.gem5,
+                lives_modifier: this.clickScore.emerald,
+                score_modifier: this.clickScore.amethyst,
+                obstacle_modifier: this.clickScore.ruby,
+                jump_num_modifier: this.clickScore.sapphire,
+                jump_height_modifier: this.clickScore.diamond
             })
         }
 
@@ -369,7 +381,7 @@ class runnerGame extends Phaser.Scene{
                 this.fireGroup.remove(fire);
 
                 if (!this.dying) {
-                    this.score += 1
+                    this.score += 1*this.gameOptions.scoreMulti;
                     this.scoreText.setText(`Score: ${this.score}`)    
                 }
             }
