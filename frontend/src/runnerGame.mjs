@@ -31,8 +31,7 @@ class runnerGame extends Phaser.Scene{
  
     }
 
-    create(clickScore) {
-        
+    create(clickScore) {        
         if (this.createFlag){
             this.clickScore = clickScore
             
@@ -45,7 +44,7 @@ class runnerGame extends Phaser.Scene{
             this.gameOptions.scoreMulti += Math.ceil(scoreMulti*0.1);
             this.createFlag = false;
         }
-       
+     
 
         this.caveBackgroundStatic = this.add.tileSprite(this.game.config.width/2, this.game.config.height/2, 1500, 800, 'caveback');
         this.caveBackground = this.add.tileSprite(this.game.config.width/2, 0, 1500, 1600, 'cavemid');
