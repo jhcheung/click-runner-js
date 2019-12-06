@@ -47,11 +47,12 @@ export default class leaderboard {
                 <td data-column="Rank">${index + 1}</td>
                 <td data-column="Username">${user.attributes.user.name}</td>
                 <td data-column="Score">${user.attributes.score}</td>
-                <td data-column="Emeralds">${user.attributes.lives_modifier}</td>
-                <td data-column="Amethysts">${user.attributes.score_modifier}</td>
                 <td data-column="Rubies">${user.attributes.obstacle_modifier}</td>
+                <td data-column="Emeralds">${user.attributes.lives_modifier}</td>
                 <td data-column="Sapphires">${user.attributes.jump_num_modifier}</td>
                 <td data-column="Diamonds">${user.attributes.jump_height_modifier}</td>
+                <td data-column="Amethysts">${user.attributes.score_modifier}</td>
+
 
                 </tr>
             `
