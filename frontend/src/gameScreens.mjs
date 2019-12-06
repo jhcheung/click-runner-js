@@ -20,6 +20,8 @@ export class startScreen extends Phaser.Scene{
             frameWidth: 300,
             frameHeight: 200
         });
+
+        this.load.image("title", "public/clickTitle.png");
     }
     loadNewSpriteAndGame(){
         this.anims.stop();
@@ -32,10 +34,10 @@ export class startScreen extends Phaser.Scene{
         const instructionsText = this.add.text(0, 0, instructions, { fontSize: "20px", fontFamily: 'Comic Sans MS', fill: 'whitesmoke', wordWrap: { width: 1300 },     padding: {
             left: 30,
             right: 30,
-            top: 100,
+            top: 300,
             bottom: 100,
         }});
-        const clickPlay = this.add.sprite(this.game.config.width/2, this.game.config.height/1.2, 'plunder');
+        const clickPlay = this.add.sprite(this.game.config.width/2, this.game.config.height/1.07, 'plunder');
         this.anims.create({
             key: 'plund',
             frames: this.anims.generateFrameNumbers('plunder', {
@@ -107,7 +109,7 @@ export class transitionScreen extends Phaser.Scene{
         let scoreheightOffset = scoreheight/3.2;
         let game = this;
         Object.values(clickScore).forEach((value)=>{
-            game.add.text(game.game.config.width/2.2, scoreheightOffset, `Total ${gemObj[x]}: ${value}`, {fill: '#0f0'});
+            game.add.text(game.game.config.width/2.2, scoreheightOffset, `Total ${gemObj[x]}: ${value}`, {fill: 'whitesmoke', fontFamily: "Comic Sans MS"});
             scoreheightOffset += 25;
             x+=1;
         });

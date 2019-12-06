@@ -13,7 +13,7 @@ let gameOptions = {
     jumps: 2,
     firePercent: 100,
     scoreMulti: 1,
-    clickGameLength: 5
+    clickGameLength: 4
 }
 
 import logInForm from "./logInForm.mjs"
