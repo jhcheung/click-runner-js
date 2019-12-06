@@ -50,7 +50,7 @@ class runnerGame extends Phaser.Scene{
      
 
         this.jumpSound = this.sound.add('jump');
-        this.deathSound = this.sound.add('death');
+        this.deathSound = this.sound.add('death', { volume: 2.0 });
 
         this.runBGM = this.sound.add('runBGM')
         this.runBGM.play()
@@ -212,7 +212,7 @@ class runnerGame extends Phaser.Scene{
         this.input.keyboard.on('keydown_SPACE', this.jump, this)
         
         //early game over keypress for testing
-        //this.input.keyboard.on('keydown_W', this.gameOver, this);
+        this.input.keyboard.on('keydown_W', this.gameOver, this);
 
     }
    
@@ -317,8 +317,8 @@ class runnerGame extends Phaser.Scene{
     }
 
     jump(){
-        this.jumpSound.play();
         if (!this.dying) {
+            this.jumpSound.play();
             if(this.player.body.touching.down || (this.playerJumps > 0 && this.playerJumps < this.gameOptions.jumps)){
                 if(this.player.body.touching.down){
                     this.playerJumps = 0
