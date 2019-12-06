@@ -4,7 +4,6 @@ import leaderboard from './leaderboard.mjs'
 class startMenu {
     constructor(userId) {
         this.userId = userId
-        this.bodyBox = document.querySelector('div.box')
         this.createGame = function() {
             const createGameObj = {
                 method: "POST",
@@ -38,8 +37,14 @@ class startMenu {
                 <button class="menu grey" id="log_out">Log Out</button>
                 <br>
         `
-        this.bodyBox.innerHTML = startMenuHTML
-        this.bodyBox.addEventListener('click', (e) => this.checkOptions(e))
+        const bodyBox = document.querySelector('div.box')
+
+        bodyBox.innerHTML = startMenuHTML
+
+        // only run this if in the right context. when using back button, will be in different context
+        if (this.checkOptions) {
+            bodyBox.addEventListener('click', (e) => this.checkOptions(e))
+        }
     }
 
     checkOptions(e) {

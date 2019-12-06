@@ -1,9 +1,13 @@
+import startMenu from './startMenu.mjs'
 export default class leaderboard {
     
     fetchGames() {
         fetch('http://localhost:3000/api/v1/games')
             .then(resp => resp.json())
-            .then(this.sortAndRenderTable)
+            .then(json => {
+                this.sortAndRenderTable(json)
+                this.backButtonListener()
+            })
             .catch(errors => alert(errors.message))
     }
 
@@ -27,6 +31,8 @@ export default class leaderboard {
             <tbody>
             </tbody>
             </table>
+
+            <button id="back" class="menu grey">Back</button>
         `
         const tableBody = bodyBox.querySelector('tbody')
 
@@ -51,7 +57,11 @@ export default class leaderboard {
             `
             tableBody.innerHTML += userHTML
         })
+    }
 
+    backButtonListener() {
+        const backButton = document.querySelector('#back')
+        backButton.addEventListener('click', startMenu.prototype.renderStartMenu)
     }
 
     

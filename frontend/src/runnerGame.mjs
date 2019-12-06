@@ -37,9 +37,9 @@ class runnerGame extends Phaser.Scene{
             
             let [obsMod,livesMod, jumpNumMod, jumpStrengthMod, scoreMulti] = Object.values(clickScore);
             
-            this.gameOptions.firePercent -= Math.ceil(obsMod*0.3);
+            this.gameOptions.firePercent -= obsMod;
             this.lives += Math.ceil(livesMod*0.1); //lives are preloaded
-            this.gameOptions.jumps += Math.ceil(jumpNumMod*0.2);
+            this.gameOptions.jumps += Math.ceil(jumpNumMod*0.1);
             this.gameOptions.jumpForce += jumpStrengthMod*15;
             this.gameOptions.scoreMulti += Math.ceil(scoreMulti*0.1);
             this.createFlag = false;
@@ -255,6 +255,8 @@ class runnerGame extends Phaser.Scene{
 
         if(this.addedGround > 1){
             if(Phaser.Math.Between(1, 100) <= this.gameOptions.firePercent){
+                debugger
+                let randomizedFire = Phaser.Math.Between(0, 400)
                 if(this.firePool.getLength()){
                     let num = Phaser.Math.Between(1, 4)
                     if (num > this.firePool.getLength()) {
@@ -262,7 +264,7 @@ class runnerGame extends Phaser.Scene{
                     }
                     for (let i = 0; i < num; i++) {
                         let fire = this.firePool.getFirst()
-                        fire.x = this.gameOptions.gameDisplayWidth
+                        fire.x = this.gameOptions.gameDisplayWidth + randomizedFire 
                         fire.y = this.game.config.height - 200 - (i * 40)
                         fire.alpha = 1
                         fire.active = true
@@ -303,14 +305,16 @@ class runnerGame extends Phaser.Scene{
     }
 
     jump(){
-        if(this.player.body.touching.down || (this.playerJumps > 0 && this.playerJumps < this.gameOptions.jumps)){
-            if(this.player.body.touching.down){
-                this.playerJumps = 0
+        if (!this.dying) {
+            if(this.player.body.touching.down || (this.playerJumps > 0 && this.playerJumps < this.gameOptions.jumps)){
+                if(this.player.body.touching.down){
+                    this.playerJumps = 0
+                }
+                this.player.setVelocityY(this.gameOptions.jumpForce * -1)
+                this.playerJumps ++
+                this.player.anims.setProgress(0.25)
+                this.player.anims.stop();
             }
-            this.player.setVelocityY(this.gameOptions.jumpForce * -1)
-            this.playerJumps ++
-            this.player.anims.setProgress(0.25)
-            this.player.anims.stop();
         }
         
     }
@@ -350,10 +354,10 @@ class runnerGame extends Phaser.Scene{
             .then(resp => resp.json())
             .then(json => {
             })
+            .catch(error => alert(error))
     }
 
     update() {
-        //extend ground with every update
         if(this.player.y > this.game.config.height){
             this.scene.restart();
         }

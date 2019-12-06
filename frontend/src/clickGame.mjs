@@ -57,7 +57,7 @@ class clickGame extends Phaser.Scene{
         let func = () => {
             console.log(counter++);
             
-            if (counter === 2){
+            if (counter === this.game.gameOptions.clickGameLength){
             let gemCounter = this.gemCounter;
                 
             this.gemGroup.getChildren().forEach((gem)=>{
@@ -120,7 +120,7 @@ class clickGame extends Phaser.Scene{
         this.gemGroup = this.add.group();
         this.renderGems(this.gemGroup, this.gemCounter);
         this.text = this.add.text(32, 32);
-        this.timeEvent = this.time.addEvent({delay: 3000, callback: func, callbackScope: this, repeat: 1});
+        this.timeEvent = this.time.addEvent({delay: 3000, callback: func, callbackScope: this, repeat: this.game.gameOptions.clickGameLength});
 
        
     } 
