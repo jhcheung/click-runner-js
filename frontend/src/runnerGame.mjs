@@ -203,7 +203,7 @@ class runnerGame extends Phaser.Scene{
                 this.physics.world.removeCollider(this.groundCollider);
                 this.lives = this.lives - 1
                 this.livesText.setText(`Lives: ${this.lives}`)
-                this.runBGM.stop()
+                this.runBGM.stop();
             }
             // this.game.time.events.add(Phaser.Timer.SECOND * 4, this.scene.restart(), this)
         }, null, this);
@@ -212,7 +212,7 @@ class runnerGame extends Phaser.Scene{
         this.input.keyboard.on('keydown_SPACE', this.jump, this)
         
         //early game over keypress for testing
-        //this.input.keyboard.on('keydown_W', this.gameOver, this);
+        this.input.keyboard.on('keydown_W', this.gameOver, this);
 
     }
    
