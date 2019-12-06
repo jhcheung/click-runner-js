@@ -1,8 +1,8 @@
 
 let gemObj = {
     1: "ruby",
-    2: "sapphire",
-    3: "emerald",
+    2: "emerald",
+    3: "sapphire",
     4: "diamond",
     5: "amethyst"
 }
@@ -16,11 +16,11 @@ class clickGame extends Phaser.Scene{
         this.timeEvent;
         this.gemGroup;
         this.gemCounter = {
-            gem1: 0,
-            gem2: 0,
-            gem3: 0,
-            gem4: 0,
-            gem5: 0
+            ruby: 0,
+            emerald: 0,
+            sapphire: 0,
+            diamond: 0,
+            amethyst: 0
         }
     }
     
@@ -63,19 +63,19 @@ class clickGame extends Phaser.Scene{
             this.gemGroup.getChildren().forEach((gem)=>{
                 switch(gem.name){
                     case "ruby":
-                        gemCounter.gem1 += gem.clickCount;
+                        gemCounter.ruby += gem.clickCount;
                         break;
                     case "emerald":
-                        gemCounter.gem2 += gem.clickCount;
+                        gemCounter.emerald += gem.clickCount;
                         break;
                     case "sapphire":
-                        gemCounter.gem3 += gem.clickCount;
+                        gemCounter.sapphire += gem.clickCount;
                         break;
                     case "diamond":
-                        gemCounter.gem4 += gem.clickCount;
+                        gemCounter.diamond += gem.clickCount;
                         break;
                     case "amethyst":
-                        gemCounter.gem5 += gem.clickCount;
+                        gemCounter.amethyst += gem.clickCount;
                         break;
                 }
             });
@@ -85,7 +85,7 @@ class clickGame extends Phaser.Scene{
             }
             else {
                 this.renderGems(this.gemGroup, this.gemCounter);
-                // debugger;
+                ;
             }
         }
         for (let i = 1 ; i <= Object.values(gemObj).length ; i++)
@@ -100,7 +100,7 @@ class clickGame extends Phaser.Scene{
                 repeat: -1
             });
         }
-        // debugger;
+        ;
         // this.anims.create({
         //     key: "gem",
         //     frames: this.anims.generateFrameNumbers("ruby", {
@@ -114,7 +114,7 @@ class clickGame extends Phaser.Scene{
         let scaleX = this.cameras.main.width / image.width
         let scaleY = this.cameras.main.height / image.height
         let scale = Math.min(scaleX, scaleY)
-        // debugger;
+        ;
         image.setScale(scale).setScrollFactor(0)
         //this.add.image(0,0, 'coins');
         this.gemGroup = this.add.group();
@@ -129,50 +129,50 @@ class clickGame extends Phaser.Scene{
         this.text.setText('Event.progress: ' + this.timeEvent.getProgress().toString().substr(0, 4) + '\nEvent.repeatCount: ' + this.timeEvent.repeatCount);
     }
     renderGems(gemGrouping, gemCounter){
-        // debugger
+        
         while(gemGrouping.getLength()){
             let gem = gemGrouping.getFirstAlive()
-            // debugger
+            
             switch(gem.name){
                 case "ruby":
-                    gemCounter.gem1 += gem.clickCount;
+                    gemCounter.ruby += gem.clickCount;
                     break;
                 case "sapphire":
-                    gemCounter.gem2 += gem.clickCount;
+                    gemCounter.emerald += gem.clickCount;
                     break;
                 case "emerald":
-                    gemCounter.gem3 += gem.clickCount;
+                    gemCounter.sapphire += gem.clickCount;
                     break;
                 case "diamond":
-                    gemCounter.gem4 += gem.clickCount;
+                    gemCounter.diamond += gem.clickCount;
                     break;
                 case "amethyst":
-                    gemCounter.gem5 += gem.clickCount;
+                    gemCounter.amethyst += gem.clickCount;
                     break;
             }
             gemGrouping.remove(gem);
             gem.destroy();
         }
         //check if exist
-        // if (this.gem1) {
-        //     gemCounter.gem1 += this.gem1.clickCount
-        //     this.gem1.destroy();
+        // if (this.ruby) {
+        //     gemCounter.ruby += this.ruby.clickCount
+        //     this.ruby.destroy();
         // }
-        // if (this.gem2) {
-        //     gemCounter.gem2 += this.gem2.clickCount
-        //     this.gem2.destroy();
+        // if (this.emerald) {
+        //     gemCounter.emerald += this.emerald.clickCount
+        //     this.emerald.destroy();
         // }
-        // if (this.gem3) {
-        //     gemCounter.gem3 += this.gem3.clickCount
-        //     this.gem3.destroy();
+        // if (this.sapphire) {
+        //     gemCounter.sapphire += this.sapphire.clickCount
+        //     this.sapphire.destroy();
         // }
-        // if (this.gem4) {
-        //     gemCounter.gem4 += this.gem4.clickCount
-        //     this.gem4.destroy();
+        // if (this.diamond) {
+        //     gemCounter.diamond += this.diamond.clickCount
+        //     this.diamond.destroy();
         // }
-        // if (this.gem5) {
-        //     gemCounter.gem5 += this.gem5.clickCount
-        //     this.gem5.destroy();
+        // if (this.amethyst) {
+        //     gemCounter.amethyst += this.amethyst.clickCount
+        //     this.amethyst.destroy();
         // }
         for (let i = 1; i <= 5; i++){
 
@@ -187,46 +187,46 @@ class clickGame extends Phaser.Scene{
             gem.on('pointerup', this.startAnim);
             gemGrouping.add(gem);
         }
-        // this.gem1 = this.add.sprite(this.randWidth(), this.randHeight(), "fire")
-        // this.gem2 = this.add.sprite(this.randWidth(), this.randHeight(), "fire")
-        // this.gem3 = this.add.sprite(this.randWidth(), this.randHeight(), "fire")
-        // this.gem4 = this.add.sprite(this.randWidth(), this.randHeight(), "fire")
-        // this.gem5 = this.add.sprite(this.randWidth(), this.randHeight(), "fire")
-        // this.gem1.name = "gem1";
-        // this.gem2.name = "gem2";
-        // this.gem3.name = "gem3";
-        // this.gem4.name = "gem4";
-        // this.gem5.name = "gem5";
+        // this.ruby = this.add.sprite(this.randWidth(), this.randHeight(), "fire")
+        // this.emerald = this.add.sprite(this.randWidth(), this.randHeight(), "fire")
+        // this.sapphire = this.add.sprite(this.randWidth(), this.randHeight(), "fire")
+        // this.diamond = this.add.sprite(this.randWidth(), this.randHeight(), "fire")
+        // this.amethyst = this.add.sprite(this.randWidth(), this.randHeight(), "fire")
+        // this.ruby.name = "ruby";
+        // this.emerald.name = "emerald";
+        // this.sapphire.name = "sapphire";
+        // this.diamond.name = "diamond";
+        // this.amethyst.name = "amethyst";
 
-        // this.gem1.anims.play("gem");
-        // this.gem2.anims.play("gem");
-        // this.gem3.anims.play("gem");
-        // this.gem4.anims.play("gem");
-        // this.gem5.anims.play("gem");
+        // this.ruby.anims.play("gem");
+        // this.emerald.anims.play("gem");
+        // this.sapphire.anims.play("gem");
+        // this.diamond.anims.play("gem");
+        // this.amethyst.anims.play("gem");
 
-        // this.gem1.clickCount = 0;
-        // this.gem2.clickCount = 0;
-        // this.gem3.clickCount = 0;
-        // this.gem4.clickCount = 0;
-        // this.gem5.clickCount = 0;
+        // this.ruby.clickCount = 0;
+        // this.emerald.clickCount = 0;
+        // this.sapphire.clickCount = 0;
+        // this.diamond.clickCount = 0;
+        // this.amethyst.clickCount = 0;
 
-        // this.gem1.setInteractive();
-        // this.gem2.setInteractive();
-        // this.gem3.setInteractive();
-        // this.gem4.setInteractive();
-        // this.gem5.setInteractive();
+        // this.ruby.setInteractive();
+        // this.emerald.setInteractive();
+        // this.sapphire.setInteractive();
+        // this.diamond.setInteractive();
+        // this.amethyst.setInteractive();
 
 
-        // // debugger
-        // // this.gem1.input.useHandCursor = true;
-        // // this.gem2.input.useHandCursor = true;
-        // // this.gem3.input.useHandCursor = true;
+        // 
+        // // this.ruby.input.useHandCursor = true;
+        // // this.emerald.input.useHandCursor = true;
+        // // this.sapphire.input.useHandCursor = true;
 
-        // this.gem1.on('pointerdown', this.incGem);
-        // this.gem2.on('pointerdown', this.incGem);
-        // this.gem3.on('pointerdown', this.incGem);
-        // this.gem4.on('pointerdown', this.incGem);
-        // this.gem5.on('pointerdown', this.incGem);
+        // this.ruby.on('pointerdown', this.incGem);
+        // this.emerald.on('pointerdown', this.incGem);
+        // this.sapphire.on('pointerdown', this.incGem);
+        // this.diamond.on('pointerdown', this.incGem);
+        // this.amethyst.on('pointerdown', this.incGem);
 
     }
     startAnim(){

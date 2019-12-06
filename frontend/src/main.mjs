@@ -2,16 +2,17 @@ let game;
 // let flag = true;
 
 let gameOptions = {
-    platformStartSpeed: 400,
+    platformStartSpeed: 800,
     gameDisplayWidth: 1337,
-    playerGravity: 1000,
+    playerGravity: 1200,
     cave1Speed: 40,
     cave2Speed: 90,
     jumpForce: 500,
     playerStartPosition: 200,
-    playerStartLives: 2,
-    jumps: 100,
-    firePercent: 100
+    playerStartLives: 3,
+    jumps: 2,
+    firePercent: 100,
+    scoreMulti: 1
 }
 
 import logInForm from "./logInForm.mjs"
@@ -40,7 +41,7 @@ export function gameStart(userId, gameId) {
     game.userId = userId
     game.gameId = gameId
     window.focus();
-    // debugger;
+    ;
     resize();
     window.addEventListener("resize", resize, false);
 }

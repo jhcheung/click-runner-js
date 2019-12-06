@@ -24,7 +24,7 @@ export class startScreen extends Phaser.Scene{
     loadNewSpriteAndGame(){
         this.anims.stop();
         this.anims.play('press');
-        // debugger;
+        ;
         this.scene.scene.start('ClickGame');
     }
     create(){        
@@ -102,7 +102,7 @@ export class transitionScreen extends Phaser.Scene{
             frameRate: 1,
             repeat: -1
         });
-        // debugger;
+        ;
         let x = 1;
         let scoreheight = this.game.config.height;
         let scoreheightOffset = scoreheight/3.2;
@@ -113,7 +113,7 @@ export class transitionScreen extends Phaser.Scene{
             x+=1;
         });
         
-        //const score1 = this.add.text(this.game.config.width/2.2, this.game.config.height/3.2, clickScore.gem1, {fill: '#0f0'});
+        //const score1 = this.add.text(this.game.config.width/2.2, this.game.config.height/3.2, clickScore.ruby, {fill: '#0f0'});
         //const resetButton = this.add.text(this.game.config.width/2.2, this.game.config.height/1.2, 'Start running!', { fill: '#0f0' });
         const clickPlay = this.add.sprite(this.game.config.width/2, this.game.config.height/1.2, 'run');
         clickPlay.anims.play('runn');
@@ -122,10 +122,10 @@ export class transitionScreen extends Phaser.Scene{
     }
 
     loadNewSpriteAndGame(){
-        // debugger
+        
         this.anims.stop();
         this.anims.play('pressRun');
-        debugger
+        
         this.scene.scene.start('RunnerGame',this.scene.clickScore);
     }
 
@@ -156,13 +156,13 @@ export class endScreen extends Phaser.Scene{
     // loadNewSpriteAndGame(){
     //     this.anims.stop();
     //     this.anims.play('playPress');
-    //     // debugger;
+    //     ;
     //     this.scene.scene.start('StartScreen');
     // }
     destroyG(){
         this.anims.stop();
         this.anims.play('quitPress');
-        debugger
+        // debugger
         document.querySelector('canvas').remove();
         
     }
@@ -236,7 +236,7 @@ export class endScreen extends Phaser.Scene{
         //     //temporary
         //     document.querySelector('canvas').remove();
         // })
-        // // debugger
+        // 
     }
 
 }
