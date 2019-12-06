@@ -123,7 +123,7 @@ class clickGame extends Phaser.Scene{
         //this.add.image(0,0, 'coins');
         this.gemGroup = this.add.group();
         this.renderGems(this.gemGroup, this.gemCounter);
-        this.text = this.add.text(10, this.cameras.main.height - 68, "",{fontFamily: "Comic Sans MS", fontSize: "64px"});
+        this.text = this.add.text(15, this.cameras.main.height - 75, "",{fontFamily: "Comic Sans MS", fontSize: "64px"});
         this.timeEvent = this.time.addEvent({delay: 5000, callback: func, callbackScope: this, repeat: 3});
         this.secondEvent = this.time.addEvent({delay:1000, callback: incTime, callbackScope: this, repeat:19})
        
