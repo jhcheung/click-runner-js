@@ -326,7 +326,7 @@ class runnerGame extends Phaser.Scene{
                 this.player.setVelocityY(this.gameOptions.jumpForce * -1)
                 this.playerJumps ++
                 this.player.anims.setProgress(0.25)
-                this.player.anims.stop();
+                // this.player.anims.stop();
             }
         }
         
