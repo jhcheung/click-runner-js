@@ -88,6 +88,7 @@ class clickGame extends Phaser.Scene{
             });
 
                 this.music.stop();
+                debugger
                 this.scene.start("TransitionScreen",this.gemCounter);
             }
             else {
@@ -160,10 +161,10 @@ class clickGame extends Phaser.Scene{
                     gemCounter.ruby += gem.clickCount;
                     break;
                 case "sapphire":
-                    gemCounter.emerald += gem.clickCount;
+                    gemCounter.sapphire += gem.clickCount;
                     break;
                 case "emerald":
-                    gemCounter.sapphire += gem.clickCount;
+                    gemCounter.emerald += gem.clickCount;
                     break;
                 case "diamond":
                     gemCounter.diamond += gem.clickCount;

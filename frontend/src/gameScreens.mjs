@@ -1,9 +1,7 @@
-import {gameStart, resize} from './main.mjs'
-
 let gemObj = {
     1: "rubies",
-    3: "emeralds",
-    2: "sapphires",
+    2: "emeralds",
+    3: "sapphires",
     4: "diamonds",
     5: "amethysts"
 }
@@ -39,7 +37,7 @@ export class startScreen extends Phaser.Scene{
         this.scene.scene.start('ClickGame');
     }
     create(){
-        const instructions = `You are an explorer seeking valuable treasures in an unnamed dungeon. In the first part of the game, put your plunde— mining skills to the test! \nClick the gems as they appear on the screen to mine them. \nOh no! After 20 seconds of mining, it seems that the dungeon has noticed you. It’s time to escape! \nUse the space bar in order to jump over obstacles as they appear on the screen. Luckily, you have the gems you gathered to help, as they will grant you magic powers! \n * Rubys - Rubies will ward off obstacles, lowering the encounter rate. \n * Emeralds - Emeralds  will improve your jumping ability, giving you more mid-air jumps. \n * Sapphires - Sapphires will grant you additional lives. \n * Diamonds will improve your jumping ability, giving you more jumping force. \n * Amethysts will increase your score multiplier. \n\nGood luck!`
+        const instructions = `You are an explorer seeking valuable treasures in an unnamed dungeon. In the first part of the game, put your plunde— mining skills to the test! \nClick the gems as they appear on the screen to mine them. \nOh no! After 20 seconds of mining, it seems that the dungeon has noticed you. It’s time to escape! \nUse the space bar in order to jump over obstacles as they appear on the screen. Luckily, you have the gems you gathered to help, as they will grant you magic powers! \n * Rubys - Rubies will ward off obstacles, lowering the encounter rate. \n * Sapphires - Sapphires will improve your jumping ability, giving you more mid-air jumps. \n * Emeralds - Emeralds will grant you additional lives.\n * Diamonds will improve your jumping ability, giving you more jumping force. \n * Amethysts will increase your score multiplier. \n\nGood luck!`
         this.createGame()
 
         let title = this.add.image(this.cameras.main.width / 2, 150, 'title')
@@ -143,14 +141,12 @@ export class transitionScreen extends Phaser.Scene{
             repeat: -1
         });
         ;
-        let x = 1;
         let scoreheight = this.game.config.height;
         let scoreheightOffset = scoreheight/3.2;
         let game = this;
-        Object.values(clickScore).forEach((value)=>{
-            game.add.text(game.game.config.width/2.2, scoreheightOffset, `Total ${gemObj[x]}: ${value}`, {fill: 'whitesmoke', fontFamily: "Comic Sans MS"});
+        Object.values(clickScore).forEach((value, index)=>{
+            game.add.text(game.game.config.width/2.2, scoreheightOffset, `Total ${gemObj[index+1]}: ${value}`, {fill: 'whitesmoke', fontFamily: "Comic Sans MS"});
             scoreheightOffset += 25;
-            x+=1;
         });
         
         //const score1 = this.add.text(this.game.config.width/2.2, this.game.config.height/3.2, clickScore.ruby, {fill: '#0f0'});
@@ -269,7 +265,21 @@ export class endScreen extends Phaser.Scene{
         this.clickAgain.on('pointerdown', () => { 
             this.again() 
             // const userId = this.game.userId
-            debugger
+            let gameOptions = {
+                platformStartSpeed: 800,
+                gameDisplayWidth: 1337,
+                playerGravity: 1200,
+                cave1Speed: 40,
+                cave2Speed: 90,
+                jumpForce: 500,
+                playerStartPosition: 200,
+                playerStartLives: 2,
+                jumps: 2,
+                firePercent: 100,
+                scoreMulti: 1,
+                clickGameLength: 4
+            }
+            this.game.gameOptions = gameOptions            
             this.scene.start('StartScreen')
             // // document.querySelector('canvas').remove()
             // gameStart(userId)
