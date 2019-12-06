@@ -113,7 +113,7 @@ export class transitionScreen extends Phaser.Scene{
         let scoreheightOffset = scoreheight/3.2;
         let game = this;
         Object.values(clickScore).forEach((value)=>{
-            game.add.text(game.game.config.width/2.2, scoreheightOffset, `Total ${gemObj[x]}: ${value}`, {fill: '#0f0'});
+            game.add.text(game.game.config.width/2.2, scoreheightOffset, `Total ${gemObj[x]}: ${value}`, {fill: 'whitesmoke', fontFamily: "Comic Sans MS"});
             scoreheightOffset += 25;
             x+=1;
         });
