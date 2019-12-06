@@ -151,14 +151,14 @@ export class endScreen extends Phaser.Scene{
         super("EndScreen");
     }
     preload(){
-        // this.load.spritesheet('again', 'public/pagain.png', {
-        //     frameWidth: 300,
-        //     frameHeight: 200
-        // });
-        // this.load.spritesheet('againPress', 'public/pagainpress.png', {
-        //     frameWidth: 300,
-        //     frameHeight: 200
-        // });
+        this.load.spritesheet('again', 'public/pagain.png', {
+            frameWidth: 300,
+            frameHeight: 200
+        });
+        this.load.spritesheet('againPress', 'public/pagainpress.png', {
+            frameWidth: 300,
+            frameHeight: 200
+        });
         this.load.spritesheet('quit', 'public/quit.png', {
             frameWidth: 300,
             frameHeight: 200
@@ -168,15 +168,14 @@ export class endScreen extends Phaser.Scene{
             frameHeight: 200
         });
     }
-    // loadNewSpriteAndGame(){
-    //     this.anims.stop();
-    //     this.anims.play('playPress');
-    //     ;
-    //     this.scene.scene.start('StartScreen');
-    // }
     destroyG(){
         this.anims.stop();
         this.anims.play('quitPress');
+        location.reload();
+    }
+    again(){
+        this.anims.stop();
+        this.anims.play('playPress');
         // debugger
         document.querySelector('canvas').remove();
         
@@ -184,29 +183,29 @@ export class endScreen extends Phaser.Scene{
     create(data){
         console.log(data);
         console.log("here");
-        this.add.text(this.game.config.width/2.5, this.game.config.height/2.2, 'Game Over', { fontSize: "64px", fontFamily: 'Comic Sans MS' });
-        this.add.text(this.game.config.width/2.3, this.game.config.height/1.8, `Your Score : ${data}`, { fontSize: "32px", fontFamily: 'Comic Sans MS' });
+        this.add.text(this.game.config.width/2.65, this.game.config.height/2.9, 'Game Over', { fontSize: "64px", fontFamily: 'Comic Sans MS' });
+        this.add.text(this.game.config.width/2.45, this.game.config.height/2.1, `Your Score : ${data}`, { fontSize: "32px", fontFamily: 'Comic Sans MS' });
         
 
         // const clickPlay = this.add.sprite(this.game.config.width/2, this.game.config.height/1.5, 'again');
-        // this.anims.create({
-        //     key: 'play',
-        //     frames: this.anims.generateFrameNumbers('again', {
-        //         start: 0,
-        //         end: 0
-        //     }),
-        //     frameRate: 1,
-        //     repeat: -1
-        // });
-        // this.anims.create({
-        //     key: 'playPress',
-        //     frames: this.anims.generateFrameNumbers('againPress', {
-        //         start: 0,
-        //         end: 0
-        //     }),
-        //     frameRate: 1,
-        //     repeat: -1
-        // });
+        this.anims.create({
+            key: 'play',
+            frames: this.anims.generateFrameNumbers('again', {
+                start: 0,
+                end: 0
+            }),
+            frameRate: 1,
+            repeat: -1
+        });
+        this.anims.create({
+            key: 'playPress',
+            frames: this.anims.generateFrameNumbers('againPress', {
+                start: 0,
+                end: 0
+            }),
+            frameRate: 1,
+            repeat: -1
+        });
 
         // const resetButton = this.add.text(this.game.config.width/2, this.game.config.height/1.2, 'Click When Ready', { fontSize: "20px", fontFamily: 'Comic Sans MS', fill: '#0f0' });
 
@@ -214,7 +213,8 @@ export class endScreen extends Phaser.Scene{
         // clickPlay.setInteractive();
         // clickPlay.on('pointerdown', this.loadNewSpriteAndGame);
 
-        const clickQuit = this.add.sprite(this.game.config.width/2, this.game.config.height/1.2, 'quit');
+        const clickQuit = this.add.sprite(this.game.config.width/2, this.game.config.height/1.4, 'again');
+        const clickLog = this.add.sprite(this.game.config.width/2, this.game.config.height/1.1, 'quit');
         this.anims.create({
             key: 'quit',
             frames: this.anims.generateFrameNumbers('quit', {
@@ -237,9 +237,12 @@ export class endScreen extends Phaser.Scene{
 
         // const resetButton = this.add.text(this.game.config.width/2, this.game.config.height/1.2, 'Click When Ready', { fontSize: "20px", fontFamily: 'Comic Sans MS', fill: '#0f0' });
 
-        clickQuit.anims.play('quit');
+        clickQuit.anims.play('play');
+        clickLog.anims.play('quit');
+        clickLog.setInteractive();
         clickQuit.setInteractive();
-        clickQuit.on('pointerdown', this.destroyG);
+        clickQuit.on('pointerdown', this.again);
+        clickLog.on('pointerdown', this.destroyG);
 
 
         // //const helloButton = this.add.text(this.game.config.width/2.2, this.game.config.height/1.5, 'Hello Phaser!', { fill: '#0f0' });

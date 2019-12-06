@@ -42,7 +42,6 @@ export function gameStart(userId, gameId) {
     game.userId = userId
     game.gameId = gameId
     window.focus();
-    ;
     resize();
     window.addEventListener("resize", resize, false);
 }
