@@ -9,7 +9,7 @@ let gameOptions = {
     cave2Speed: 90,
     jumpForce: 500,
     playerStartPosition: 200,
-    playerStartLives: 3,
+    playerStartLives: 1,
     jumps: 2,
     firePercent: 100,
     scoreMulti: 1,

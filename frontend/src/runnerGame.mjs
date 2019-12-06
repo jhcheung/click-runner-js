@@ -36,8 +36,11 @@ class runnerGame extends Phaser.Scene{
             this.clickScore = clickScore
             
             let [obsMod,livesMod, jumpNumMod, jumpStrengthMod, scoreMulti] = Object.values(clickScore);
-            
-            this.gameOptions.firePercent -= obsMod;
+            if (this.gameOptions.firePercent - obsMod < 25) {
+                this.gameOptions.firePercent = 25
+            } else {
+                this.gameOptions.firePercent -= obsMod
+            }
             this.lives += Math.ceil(livesMod*0.1); //lives are preloaded
             this.gameOptions.jumps += Math.ceil(jumpNumMod*0.1);
             this.gameOptions.jumpForce += jumpStrengthMod*15;
@@ -254,8 +257,8 @@ class runnerGame extends Phaser.Scene{
 
 
         if(this.addedGround > 1){
+
             if(Phaser.Math.Between(1, 100) <= this.gameOptions.firePercent){
-                debugger
                 let randomizedFire = Phaser.Math.Between(0, 400)
                 if(this.firePool.getLength()){
                     let num = Phaser.Math.Between(1, 4)
