@@ -14,6 +14,7 @@ class clickGame extends Phaser.Scene{
         super("ClickGame");
         this.text;
         this.timeEvent;
+        this.secondEvent;
         this.gemGroup;
         this.gemCounter = {
             ruby: 0,
@@ -22,6 +23,7 @@ class clickGame extends Phaser.Scene{
             diamond: 0,
             amethyst: 0
         }
+        this.timeCounter = 0;
     }
     
     preload() {
@@ -53,11 +55,14 @@ class clickGame extends Phaser.Scene{
     }
     create(){
         let counter = 0;
+        let incTime = () => {
+            this.timeCounter++;
+        }
 
         let func = () => {
             console.log(counter++);
             
-            if (counter === 2){
+            if (counter === 4){
             let gemCounter = this.gemCounter;
                 
             this.gemGroup.getChildren().forEach((gem)=>{
@@ -113,20 +118,24 @@ class clickGame extends Phaser.Scene{
         let image = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'coins')
         let scaleX = this.cameras.main.width / image.width
         let scaleY = this.cameras.main.height / image.height
-        let scale = Math.min(scaleX, scaleY)
-        ;
+        let scale = Math.min(scaleX, scaleY);
         image.setScale(scale).setScrollFactor(0)
         //this.add.image(0,0, 'coins');
         this.gemGroup = this.add.group();
         this.renderGems(this.gemGroup, this.gemCounter);
-        this.text = this.add.text(32, 32);
-        this.timeEvent = this.time.addEvent({delay: 3000, callback: func, callbackScope: this, repeat: 1});
-
+        this.text = this.add.text(10, this.cameras.main.height - 68, "",{fontFamily: "Comic Sans MS", fontSize: "64px"});
+        this.timeEvent = this.time.addEvent({delay: 5000, callback: func, callbackScope: this, repeat: 3});
+        this.secondEvent = this.time.addEvent({delay:1000, callback: incTime, callbackScope: this, repeat:19})
        
     } 
     update()
     {
-        this.text.setText('Event.progress: ' + this.timeEvent.getProgress().toString().substr(0, 4) + '\nEvent.repeatCount: ' + this.timeEvent.repeatCount);
+        // let time = this.timeEvent.getProgress().toString().substr(0, 4);
+        // let timeMinus = 5 * time;
+
+        
+        
+        this.text.setText(20-this.timeCounter);
     }
     renderGems(gemGrouping, gemCounter){
         

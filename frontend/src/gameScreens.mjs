@@ -20,6 +20,8 @@ export class startScreen extends Phaser.Scene{
             frameWidth: 300,
             frameHeight: 200
         });
+
+        this.load.image("title", "public/clickTitle.png");
     }
     loadNewSpriteAndGame(){
         this.anims.stop();
@@ -27,15 +29,18 @@ export class startScreen extends Phaser.Scene{
         ;
         this.scene.scene.start('ClickGame');
     }
-    create(){        
+    create(){    
+
         const instructions = "You are an explorer seeking valuable treasures in an unnamed dungeon. In the first part of the game, put your plunde— mining skills to the test! \nClick the gems as they appear on the screen to mine them. \nOh no! After 30 seconds of mining, it seems that the dungeon has noticed you. It’s time to escape! \nUse the space bar in order to jump over obstacles as they appear on the screen. Luckily, you have the gems you gathered to help, as they will grant you magic powers! \n * Emeralds - Emeralds will grant you additional lives. Wow! \n * Sapphires - Sapphires will grant you a higher score multiplier. \n * Rubys - Rubies will ward off obstacles. You’ll encounter fewer obstacles as you run. \n\nGood luck!"
-        const instructionsText = this.add.text(0, 0, instructions, { fontSize: "20px", fontFamily: 'Comic Sans MS', fill: 'whitesmoke', wordWrap: { width: 1300 },     padding: {
+        let title = this.add.image(this.cameras.main.width / 2, 150, 'title')
+        title.setScale(2);
+        this.add.text(0, 0, instructions, { fontSize: "20px", fontFamily: 'Comic Sans MS', fill: 'whitesmoke', wordWrap: { width: 1300 },     padding: {
             left: 30,
             right: 30,
-            top: 100,
+            top: 300,
             bottom: 100,
         }});
-        const clickPlay = this.add.sprite(this.game.config.width/2, this.game.config.height/1.2, 'plunder');
+        const clickPlay = this.add.sprite(this.game.config.width/2, this.game.config.height/1.07, 'plunder');
         this.anims.create({
             key: 'plund',
             frames: this.anims.generateFrameNumbers('plunder', {
