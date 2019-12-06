@@ -46,7 +46,7 @@ class Api::V1::GamesController < ApplicationController
     end
 
     def game_params
-        params.require(:game).permit(:user_id, :score, :lives_modifier, :score_modifier, :obstacle_modifier, :jump_num_modifier)
+        params.require(:game).permit(:user_id, :score, :lives_modifier, :score_modifier, :obstacle_modifier, :jump_num_modifier, :jump_height_modifier)
     end
 
 end
