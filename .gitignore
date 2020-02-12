@@ -25,3 +25,4 @@ click-runner-api/.byebug_history
 
 # Ignore master key for decrypting credentials and more.
 click-runner-api/config/master.key
+.env

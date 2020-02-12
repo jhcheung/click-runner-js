@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <title>Click Runner JS</title>
+        <link rel="stylesheet" type="text/css" href="main.css">        
+        <style type = "text/css">
+            /* body{
+                background: #000000;
+                padding: 0px;
+                margin: 0px;
+            } */
+            canvas{
+                display:block;
+                margin: 0;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        </style>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:700,600' rel='stylesheet' type='text/css'>
+        <script defer src="src/phaser.min.js"></script>
+        <script defer type="module" src = "src/main.js" ></script>
+    </head>
+	<body>
+        <div class="box">
+        <form id="user_form">
+                <h1>Log In</h1>
+                <input id="user_name" class="name" type="text" required/>
+                    <br>
+                <input id="sign_in" class="btn" type="submit" value="Sign In"/>
+        </form>
+    </div>
+
+	</body>
+</html>
