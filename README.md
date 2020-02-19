@@ -1,26 +1,26 @@
-# click-runner-js
+Click Runner JS by Jimmy & Gene
+========================
 
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Click Runner JS is a video game written in Phaser 3, Javascript, and Rails. It is a combination between an autorunner and incremental (clicker) game. The backend is built with Rails, and the frontend is a combination of Phaser 3 and Javascript
 
-Things you may want to cover:
+---
 
-* Ruby version
+## How to Install
 
-* System dependencies
+1. Use Bundler to install the required gems.
+```
+bundle install
+```
+2. Run the following rake task to set up the databases
+```
+rake db:migrate
+```
+3. Run rails server and you'll be able to play! 
+```
+rails s
+```
+---
+## How to Play
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+TBC
