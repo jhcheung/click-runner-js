@@ -65,33 +65,31 @@ class clickGame extends Phaser.Scene{
             // console.log(counter++);
             
             if (counter === this.game.gameOptions.clickGameLength){
-            let gemCounter = this.gemCounter;
-                
-            this.gemGroup.getChildren().forEach((gem)=>{
-                switch(gem.name){
-                    case "ruby":
-                        gemCounter.ruby += gem.clickCount;
-                        break;
-                    case "emerald":
-                        gemCounter.emerald += gem.clickCount;
-                        break;
-                    case "sapphire":
-                        gemCounter.sapphire += gem.clickCount;
-                        break;
-                    case "diamond":
-                        gemCounter.diamond += gem.clickCount;
-                        break;
-                    case "amethyst":
-                        gemCounter.amethyst += gem.clickCount;
-                        break;
-                }
-            });
+                let gemCounter = this.gemCounter;
+                    
+                this.gemGroup.getChildren().forEach((gem)=>{
+                    switch(gem.name){
+                        case "ruby":
+                            gemCounter.ruby += gem.clickCount;
+                            break;
+                        case "emerald":
+                            gemCounter.emerald += gem.clickCount;
+                            break;
+                        case "sapphire":
+                            gemCounter.sapphire += gem.clickCount;
+                            break;
+                        case "diamond":
+                            gemCounter.diamond += gem.clickCount;
+                            break;
+                        case "amethyst":
+                            gemCounter.amethyst += gem.clickCount;
+                            break;
+                    }
+                });
 
                 this.music.stop();
-                debugger
-                this.scene.start("TransitionScreen",this.gemCounter);
-            }
-            else {
+                this.scene.start("TransitionScreen", this.gemCounter);
+            } else {
                 this.renderGems(this.gemGroup, this.gemCounter);
                 ;
             }
@@ -138,9 +136,30 @@ class clickGame extends Phaser.Scene{
         this.input.keyboard.on('keydown_W', this.gameOver, this);
     }
     gameOver(){
+        let gemCounter = this.gemCounter;
+                    
+        this.gemGroup.getChildren().forEach((gem)=>{
+            switch(gem.name){
+                case "ruby":
+                    gemCounter.ruby += gem.clickCount;
+                    break;
+                case "emerald":
+                    gemCounter.emerald += gem.clickCount;
+                    break;
+                case "sapphire":
+                    gemCounter.sapphire += gem.clickCount;
+                    break;
+                case "diamond":
+                    gemCounter.diamond += gem.clickCount;
+                    break;
+                case "amethyst":
+                    gemCounter.amethyst += gem.clickCount;
+                    break;
+            }
+        });
         this.music.stop();
         this.scene.stop()
-        this.scene.start("TransitionScreen",this.gemCounter);
+        this.scene.start("TransitionScreen", this.gemCounter);
     }
     update()
     {
