@@ -122,7 +122,7 @@ export class transitionScreen extends Phaser.Scene{
         });
     }
     create(clickScore){
-        console.log(clickScore);
+        // console.log(clickScore);
         this.clickScore = clickScore;
         this.anims.create({
             key: 'runn',
@@ -204,8 +204,8 @@ export class endScreen extends Phaser.Scene{
         
     }
     create(data){
-        console.log(data);
-        console.log("here");
+        // console.log(data);
+        // console.log("here");
         this.add.text(this.game.config.width/2.65, this.game.config.height/2.9, 'Game Over', { fontSize: "64px", fontFamily: 'Comic Sans MS' });
         this.add.text(this.game.config.width/2.45, this.game.config.height/2.1, `Your Score : ${data}`, { fontSize: "32px", fontFamily: 'Comic Sans MS' });
         

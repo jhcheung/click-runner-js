@@ -298,7 +298,7 @@ class runnerGame extends Phaser.Scene{
                         fire.anims.play("burn")
                         fire.setDepth(2)
                         this.fireGroup.add(fire)    
-                        console.log("new from group")
+                        // console.log("new from group")
                     }
                     
                 }

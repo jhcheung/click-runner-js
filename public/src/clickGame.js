@@ -62,7 +62,7 @@ class clickGame extends Phaser.Scene{
         }
 
         let func = () => {
-            console.log(counter++);
+            // console.log(counter++);
             
             if (counter === this.game.gameOptions.clickGameLength){
             let gemCounter = this.gemCounter;
@@ -257,7 +257,7 @@ class clickGame extends Phaser.Scene{
     }
     incGem(){
         this.scene.clickSound.play();
-        console.log(this.clickCount++);
+        // console.log(this.clickCount++);
         this.anims.stop();
         this.setFrame(9);
         // console.log('clicked');
