@@ -2,7 +2,7 @@ Click Runner JS by Jimmy & Gene
 ========================
 
 
-Click Runner JS is a video game written in Phaser 3, Javascript, and Rails. It is a combination between an autorunner and incremental (clicker) game. The backend is built with Rails, and the frontend is a combination of Phaser 3 and Javascript
+Click Runner JS is a video game written in Phaser 3, Javascript, and Rails. It is a combination between an autorunner and incremental (clicker) game. The backend is built with Rails, and the frontend is a combination of Phaser 3, Javascript, with CSS for styling.
 
 ---
 
