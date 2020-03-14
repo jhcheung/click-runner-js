@@ -4,6 +4,7 @@ import { gameUrl } from './urls.js'
 export default class leaderboard {
     
     fetchGames() {
+        // command fetches game data from api to render
         fetch(gameUrl)
             .then(resp => resp.json())
             .then(json => {
@@ -14,6 +15,7 @@ export default class leaderboard {
     }
 
     sortAndRenderTable(json) {
+        // html for table
         let bodyBox = document.querySelector('div.box')
         bodyBox.innerHTML = `
             <h1>High Scores</h1>
@@ -63,6 +65,7 @@ export default class leaderboard {
     }
 
     backButtonListener() {
+        // creates a back button
         const backButton = document.querySelector('#back')
         backButton.addEventListener('click', startMenu.prototype.renderStartMenu)
     }

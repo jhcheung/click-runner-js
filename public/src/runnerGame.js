@@ -1,5 +1,6 @@
 import { gameUrl } from './urls.js' 
 
+// this is the bulk of the auto-runnergame written in phaser 3
 class runnerGame extends Phaser.Scene{
     constructor() {
         super("RunnerGame")
@@ -13,6 +14,7 @@ class runnerGame extends Phaser.Scene{
     }
 
     preload() {
+        // preload is responsible for loading most of the assets.
         this.gameOptions = this.game.gameOptions
         if (!this.lives) {
             this.lives = this.gameOptions.playerStartLives
@@ -33,7 +35,8 @@ class runnerGame extends Phaser.Scene{
         this.load.image("caveback", "caveback3.png"); 
     }
 
-    create(clickScore) {        
+    create(clickScore) {   
+        // clickScore is passed from clickGame
         if (this.createFlag){
             this.score = 0
             this.addedGround = 0

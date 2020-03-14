@@ -17,6 +17,7 @@ class logInForm {
     }
 
     logInBackend(name) {
+        // login is only username, no password. this command fetches user info by hitting the login point.
         const logInObj = {
             method: "POST",
             headers: {
