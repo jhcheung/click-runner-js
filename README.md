@@ -16,7 +16,7 @@ bundle install
 ```
 rake db:migrate
 ```
-3. Run rails server and you'll be able to play! 
+3. Run rails server and you'll be able to play on the localhost with port 3000! 
 ```
 rails s
 ```
