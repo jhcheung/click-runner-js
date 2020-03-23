@@ -23,4 +23,6 @@ rails s
 ---
 ## How to Play
 
-TBC
+Click Runner is a two stage game. First, you will play a clicker game and try to click as many gems as possible.
+
+Then, you will play the autorunner game, where you have powerups according to the gmes you clickced on in the first stage.
