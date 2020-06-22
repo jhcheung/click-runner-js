@@ -70,7 +70,6 @@ export class startScreen extends Phaser.Scene{
             repeat: -1
         });
 
-        // const resetButton = this.add.text(this.game.config.width/2, this.game.config.height/1.2, 'Click When Ready', { fontSize: "20px", fontFamily: 'Comic Sans MS', fill: '#0f0' });
         this.music = this.sound.add('titleMusic');
         this.music.setLoop(true);
         this.music.play();
@@ -122,7 +121,6 @@ export class transitionScreen extends Phaser.Scene{
         });
     }
     create(clickScore){
-        // console.log(clickScore);
         this.clickScore = clickScore;
         this.anims.create({
             key: 'runn',
@@ -150,9 +148,6 @@ export class transitionScreen extends Phaser.Scene{
             game.add.text(game.game.config.width/2.2, scoreheightOffset, `Total ${gemObj[index+1]}: ${value}`, {fill: 'whitesmoke', fontFamily: "Comic Sans MS"});
             scoreheightOffset += 25;
         });
-        
-        //const score1 = this.add.text(this.game.config.width/2.2, this.game.config.height/3.2, clickScore.ruby, {fill: '#0f0'});
-        //const resetButton = this.add.text(this.game.config.width/2.2, this.game.config.height/1.2, 'Start running!', { fill: '#0f0' });
         const clickPlay = this.add.sprite(this.game.config.width/2, this.game.config.height/1.2, 'run');
         clickPlay.anims.play('runn');
         clickPlay.setInteractive();
@@ -194,23 +189,18 @@ export class endScreen extends Phaser.Scene{
     destroyG(){
         this.clickQuit.anims.stop();
         this.clickQuit.anims.play('quitPress');
-        // location.reload();
         document.querySelector('canvas').remove();
     }
     again(){
         this.clickAgain.anims.stop();
         this.clickAgain.anims.play('playPress');
-        // document.querySelector('canvas').remove();
         
     }
     create(data){
-        // console.log(data);
-        // console.log("here");
         this.add.text(this.game.config.width/2.65, this.game.config.height/2.9, 'Game Over', { fontSize: "64px", fontFamily: 'Comic Sans MS' });
         this.add.text(this.game.config.width/2.45, this.game.config.height/2.1, `Your Score : ${data}`, { fontSize: "32px", fontFamily: 'Comic Sans MS' });
         
 
-        // const clickPlay = this.add.sprite(this.game.config.width/2, this.game.config.height/1.5, 'again');
         this.anims.create({
             key: 'play',
             frames: this.anims.generateFrameNumbers('again', {
@@ -266,7 +256,6 @@ export class endScreen extends Phaser.Scene{
         this.clickAgain.setInteractive();
         this.clickAgain.on('pointerdown', () => { 
             this.again() 
-            // const userId = this.game.userId
             let gameOptions = {
                 platformStartSpeed: 800,
                 gameDisplayWidth: 1337,
