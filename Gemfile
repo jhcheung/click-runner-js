@@ -11,6 +11,8 @@ gem 'rails', '~> 6.0.1'
 
 gem "puma", ">= 4.3.3"
 
+gem "actionpack", ">= 6.0.3.1"
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.7'
 # Use Redis adapter to run Action Cable in production
