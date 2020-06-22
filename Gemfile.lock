@@ -90,7 +90,11 @@ GEM
     nio4r (2.5.2)
     nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
+<<<<<<< HEAD
     pg (1.2.3)
+=======
+    pg (1.1.4)
+>>>>>>> a666b1839afb5147a3f1d44d026d8659b130948b
     puma (4.3.5)
       nio4r (~> 2.0)
     rack (2.2.3)
