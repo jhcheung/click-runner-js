@@ -20,7 +20,6 @@ class runnerGame extends Phaser.Scene{
             this.lives = this.gameOptions.playerStartLives
         }
         this.load.image("platform", "newplatform.png")
-        // this.load.image("player", "player.png")
         this.load.image("ceiling", "platform.png")
         this.load.spritesheet("player", "click-runner-sheet-death.png", {
             frameWidth: 108,
@@ -68,20 +67,6 @@ class runnerGame extends Phaser.Scene{
         this.caveForeground = this.add.tileSprite(this.game.config.width/2, 0, 1500, 1600, 'cavefore');
         this.caveForeground.setScale(2.4);
         this.caveBackground.setScale(2.4);
-        //
-        // if (data==="dead") {
-        //     this.score = 0;
-        //     this.lives = this.gameOptions.playerStartLives;
-        // }
-        // let cave = this.add.sprite(this.cameras.main.width / 2, this.cameras.main.height / 2, 'caveback')
-        // let scaleX = this.cameras.main.width / cave.width
-        // let scaleY = this.cameras.main.height / cave.height
-        // let scale = Math.max(scaleX, scaleY)
-        // cave.setScale(scale);
-        
-        // cave.anims.play();
-        // group with all active cave foregrounds.
-       
 
         //make group for floor sprites
         this.dying = false
@@ -301,7 +286,6 @@ class runnerGame extends Phaser.Scene{
                         fire.anims.play("burn")
                         fire.setDepth(2)
                         this.fireGroup.add(fire)    
-                        // console.log("new from group")
                     }
                     
                 }
