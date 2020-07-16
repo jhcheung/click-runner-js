@@ -36,4 +36,4 @@ First, you will play a clicker game and try to click as many gems as possible. D
 * Diamond - Increase the jump height
 
 
-Then, you will play the autorunner game, where you have powerups according to the gems you clicked on in the first stage. Press space to jump.
+Then, you will play the autorunner game, where you have powerups according to the gems you clicked on in the first stage. Press space to jump. The goal is to jump over each of the incoming obstacles. The game will continue until you have hit one of the obstacles. As with other incremental/autorunner games, there is no ending.
